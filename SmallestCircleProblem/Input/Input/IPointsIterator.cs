@@ -7,5 +7,10 @@ namespace SmallestCircle.Data.Input
         Point GetNext();
 
         IEnumerable<Point> GetAll();
+
+        IEnumerable<Point> GetMany(int count);
+
+        int PointsCount { get; }
+
     }
 }

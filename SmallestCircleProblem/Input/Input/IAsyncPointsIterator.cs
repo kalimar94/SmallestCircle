@@ -8,5 +8,10 @@ namespace SmallestCircle.Data.Input
         Task<Point> GetNextAsync();
 
         Task<IEnumerable<Point>> GetAllAsync();
+
+
+        Task<IEnumerable<Point>> GetManyAsync(int count);
+
+        int PointsCount { get; }
     }
 }

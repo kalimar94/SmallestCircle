@@ -12,11 +12,13 @@ namespace SmallestCircle.Data.Input.File
 
         private StreamReader stream;
 
+        public int PointsCount { get; private set; }
+
         public FilePointsInterator(string fileName)
         {
             this.fileName = fileName;
             this.stream = new StreamReader(fileName);
-            stream.ReadLine();
+            PointsCount = int.Parse(stream.ReadLine());
         }
 
         public IEnumerable<Point> GetAll()
@@ -57,6 +59,26 @@ namespace SmallestCircle.Data.Input.File
                 .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             return lines.Select(ConvertToPoint);
+        }
+
+        public IEnumerable<Point> GetMany(int count)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                yield return GetNext();
+            }
+        }
+
+        public async Task<IEnumerable<Point>> GetManyAsync(int count)
+        {
+            var tasks = new List<Task<Point>>(count);
+
+            for (int i = 0; i < count; i++)
+            {
+                tasks.Add(GetNextAsync());
+            }
+
+            return await Task.WhenAll(tasks);
         }
     }
 }

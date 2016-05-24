@@ -14,6 +14,11 @@ namespace SmallestCircle.Data
 
         public double Radius { get; private set; }
 
+        public bool ContainsPoint(Point point)
+        {
+            return Center.DistanceTo(point) <= Radius; 
+        }
+
         public static Circle FromTwoPoints(Point firstPoint, Point secondPoint)
         {
             var centerX = (firstPoint.X + secondPoint.X) / 2d;

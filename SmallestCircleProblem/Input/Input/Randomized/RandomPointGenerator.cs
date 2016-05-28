@@ -22,10 +22,7 @@ namespace SmallestCircle.Data.Input.Randomized
 
         public IEnumerable<Point> GetAll()
         {
-            for (int i = 0; i < PointsCount; i++)
-            {
-                yield return GetNext();
-            }
+            return GetMany(PointsCount);
         }
 
         public IEnumerable<Point> GetMany(int count)

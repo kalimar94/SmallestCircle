@@ -34,7 +34,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.panel1.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel1.Location = new System.Drawing.Point(44, 27);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(759, 470);

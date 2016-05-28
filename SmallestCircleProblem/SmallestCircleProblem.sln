@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallestCircle.Calculation.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallestCircle.Calculation.IntegrationTests", "SmallestCircle.Calculation.IntegrationTests\SmallestCircle.Calculation.IntegrationTests.csproj", "{FD009839-BC78-4ACB-A08C-93E0BFA13529}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallestCircle.Presentation", "SmallestCircle.Presentation\SmallestCircle.Presentation.csproj", "{1621A3D3-7400-4EFB-8D8C-8CA297461CEA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{FD009839-BC78-4ACB-A08C-93E0BFA13529}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD009839-BC78-4ACB-A08C-93E0BFA13529}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD009839-BC78-4ACB-A08C-93E0BFA13529}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1621A3D3-7400-4EFB-8D8C-8CA297461CEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1621A3D3-7400-4EFB-8D8C-8CA297461CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1621A3D3-7400-4EFB-8D8C-8CA297461CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1621A3D3-7400-4EFB-8D8C-8CA297461CEA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

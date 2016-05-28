@@ -1,0 +1,12 @@
+﻿<Window x:Class="SmallestCircle.Presentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmallestCircle.Presentation"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="466.81" Width="696.779">
+    <Grid Margin="20,21,15,43" Name="DrawingArea">
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="28" Margin="136,380,0,-36" VerticalAlignment="Top" Width="273" Click="button_Click"/>
+    </Grid>
+</Window>

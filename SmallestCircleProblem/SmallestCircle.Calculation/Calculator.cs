@@ -18,6 +18,7 @@ namespace SmallestCircle.Calculation
 
         public Circle CalculateCircle()
         {
+            points = new List<Point>();
             var firstPoints = iterator.GetMany(2).ToArray();
             var circle = Circle.FromTwoPoints(firstPoints[0], firstPoints[1]);
 

@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallestCircle.Data.Tests",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallestCircle.Calculation", "SmallestCircle.Calculation\SmallestCircle.Calculation.csproj", "{C7399D25-6C35-45B8-B8AD-38FCD586C883}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallestCircle.View", "SmallestCircle.View\SmallestCircle.View.csproj", "{54691CB4-67C0-4F06-B83E-D8A88B06A7A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{C7399D25-6C35-45B8-B8AD-38FCD586C883}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7399D25-6C35-45B8-B8AD-38FCD586C883}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7399D25-6C35-45B8-B8AD-38FCD586C883}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54691CB4-67C0-4F06-B83E-D8A88B06A7A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54691CB4-67C0-4F06-B83E-D8A88B06A7A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54691CB4-67C0-4F06-B83E-D8A88B06A7A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54691CB4-67C0-4F06-B83E-D8A88B06A7A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

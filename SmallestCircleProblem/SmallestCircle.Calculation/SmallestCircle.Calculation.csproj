@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="Geometry\CircleExtensions.cs" />
+    <Compile Include="Geometry\CreateCircle.cs" />
+    <Compile Include="Geometry\PointExtensions.cs" />
     <Compile Include="MultiCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

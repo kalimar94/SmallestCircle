@@ -3,6 +3,7 @@ using SmallestCircle.Data.Input;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using SmallestCircle.Calculation.Geometry;
 
 namespace SmallestCircle.Calculation
 {
@@ -14,13 +15,13 @@ namespace SmallestCircle.Calculation
         public Calculator(IPointsIterator iterator)
         {
             this.iterator = iterator;
+            this.points = new List<Point>(iterator.PointsCount);
         }
 
         public Circle CalculateCircle()
         {
-            points = new List<Point>();
             var firstPoints = iterator.GetMany(2).ToArray();
-            var circle = Circle.FromTwoPoints(firstPoints[0], firstPoints[1]);
+            var circle = CreateCircle.FromTwoPoints(firstPoints[0], firstPoints[1]);
 
             points.AddRange(firstPoints);
             var nextPoint = iterator.GetNext();
@@ -42,14 +43,17 @@ namespace SmallestCircle.Calculation
 
         private Circle FindCircleCombination(Point newPoint, List<Point> existingPoints)
         {
+            Circle minCircle = null;
+
             // Try all circles that are formed as a combination of the new point and one of the existing ones
             foreach (var otherPoint in existingPoints)
             {
-                var circle = Circle.FromTwoPoints(newPoint, otherPoint);
+                var circle = CreateCircle.FromTwoPoints(newPoint, otherPoint);
 
                 if (existingPoints.All(circle.ContainsPoint))
                 {
-                    return circle;
+                    if (minCircle == null || circle < minCircle)
+                        return circle;  //minCircle = circle;
                 }
             }
 
@@ -59,16 +63,17 @@ namespace SmallestCircle.Calculation
             {
                 for (int j = i + 1; j < existingPoints.Count; j++)
                 {
-                    var circle = Circle.FromThreePoints(newPoint, existingPoints[i], existingPoints[j]);
+                    var circle = CreateCircle.FromThreePoints(newPoint, existingPoints[i], existingPoints[j]);
 
                     if (existingPoints.All(circle.ContainsPoint))
                     {
-                        return circle;
+                        if (minCircle == null || circle < minCircle)
+                            minCircle = circle;
                     }
                 }
             }
 
-            throw new ArithmeticException("Unable to find a circle that contains all the points!");
+            return minCircle;
         }
     }
 }

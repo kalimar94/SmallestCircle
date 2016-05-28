@@ -20,5 +20,10 @@ namespace SmallestCircle.Data
             var dy = this.Y - other.Y;
             return Math.Sqrt(dx * dx + dy * dy);
         }
+
+        public override string ToString()
+        {
+            return $"{X}, {Y}";
+        }
     }
 }

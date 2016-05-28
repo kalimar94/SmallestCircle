@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A22D2060-876D-4818-8CCF-5028E9E310ED}</ProjectGuid>
+    <ProjectGuid>{091206FC-A66A-4968-808C-D2F2060B3D33}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmallestCircle.Data.Tests</RootNamespace>
-    <AssemblyName>SmallestCircle.Data.Tests</AssemblyName>
+    <RootNamespace>SmallestCircle.Calculation.Tests</RootNamespace>
+    <AssemblyName>SmallestCircle.Calculation.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,22 +50,22 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="CircleTests.cs" />
-    <Compile Include="Input\File\FilePointsInteratorTests.cs" />
-    <Compile Include="Input\Randomized\RandomPointGeneratorTests.cs" />
-    <Compile Include="Input\Randomized\RandomThreadedPointsGeneratorTests.cs" />
+    <Compile Include="CalculatorTests.cs" />
+    <Compile Include="Geometry\CircleExtensionsTests.cs" />
+    <Compile Include="Geometry\CreateCircleTests.cs" />
+    <Compile Include="Geometry\PointExtensionsTests.cs" />
+    <Compile Include="MultiCalculatorTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Input\SmallestCircle.Data.csproj">
-      <Project>{37D31611-BB02-4FFF-89BD-91FDD0B9249B}</Project>
+      <Project>{37d31611-bb02-4fff-89bd-91fdd0b9249b}</Project>
       <Name>SmallestCircle.Data</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Resources\PointsSample.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <ProjectReference Include="..\SmallestCircle.Calculation\SmallestCircle.Calculation.csproj">
+      <Project>{C7399D25-6C35-45B8-B8AD-38FCD586C883}</Project>
+      <Name>SmallestCircle.Calculation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

@@ -2,7 +2,7 @@
 
 namespace SmallestCircle.Data
 {
-    public class Circle
+    public class Circle : IComparable<Circle>
     {
         public Circle(Point center, double radius)
         {
@@ -14,34 +14,24 @@ namespace SmallestCircle.Data
 
         public double Radius { get; private set; }
 
-        public bool ContainsPoint(Point point)
+        public int CompareTo(Circle other)
         {
-            return Center.DistanceTo(point) <= Radius; 
+            return this.Radius.CompareTo(other.Radius);
         }
 
-        public static Circle FromTwoPoints(Point firstPoint, Point secondPoint)
+        public static bool operator < (Circle first, Circle second)
         {
-            var centerX = (firstPoint.X + secondPoint.X) / 2d;
-            var centerY = (firstPoint.Y + secondPoint.Y) / 2d;
-
-            var center = new Point(centerX, centerY);
-            var radius = center.DistanceTo(firstPoint);
-            return new Circle(center, radius);
+            return first.CompareTo(second) == -1;
         }
 
-        public static Circle FromThreePoints(Point first, Point second, Point third)
+        public static bool operator > (Circle first, Circle second)
         {
-            var offset = second.X * second.X + second.Y * second.Y;
-            var bc = (first.X * first.X + first.Y + first.Y - offset) / 2d;
-            var cd = (offset - third.X * third.X - third.Y * third.Y) / 2d;
-            var det = (first.X - second.X) * (second.Y - third.Y) - (second.X - third.X) * (first.Y - second.Y);
-            var iDet = 1 / det;
+            return first.CompareTo(second) == 1;
+        }
 
-            var centerX = (bc * (second.Y - third.Y) - cd * (first.Y - second.Y)) * iDet;
-            var centerY = (cd * (first.X - second.X) - bc * (second.X - third.X)) * iDet;
-            var radius = Math.Sqrt(Math.Pow(second.X - centerX, 2) + Math.Pow(second.Y - centerY, 2));
-
-            return new Circle(new Point(centerX, centerY), radius);
+        public override string ToString()
+        {
+            return $"({Center.X} {Center.Y}) - R: {Radius}";
         }
     }
 }

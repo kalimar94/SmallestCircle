@@ -24,19 +24,17 @@ namespace SmallestCircle.Data.Input.Randomized
             this.PointsCount = pointsCount;
         }
 
-        public async Task<IEnumerable<Point>> GetAllAsync()
+        public Task<IEnumerable<Point>> GetAllAsync()
         {
-            var tasks = new List<Task<Point>>(PointsCount);
-            for (int i = 0; i < PointsCount; i++)
-            {
-                tasks.Add(GetNextAsync());
-            }
-
-            return await Task.WhenAll(tasks);
+            return GetManyAsync(PointsCount);
         }
 
         public async Task<Point> GetNextAsync()
         {
+            if (PointsCount <= 0)
+                return null;
+
+            PointsCount--;
             return await Task.Run(() => new Point(Rand(), Rand()));
         }
 

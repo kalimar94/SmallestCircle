@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmallestCircle.Data.Input.Randomized
 {
@@ -41,6 +38,10 @@ namespace SmallestCircle.Data.Input.Randomized
 
         public Point GetNext()
         {
+            if (PointsCount < 1)
+                return null;
+
+            PointsCount--;
             var x = generator.Next(min, max);
             var y = generator.Next(min, max);
             return new Point(x, y);

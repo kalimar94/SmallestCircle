@@ -1,10 +1,8 @@
-﻿using SmallestCircle.Data;
+﻿using SmallestCircle.Calculation.Geometry;
+using SmallestCircle.Data;
 using SmallestCircle.Data.Input;
-using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SmallestCircle.Calculation
@@ -20,15 +18,15 @@ namespace SmallestCircle.Calculation
         {
             this.iterator = iterator;
             this.threadsCount = threadsCount;
-            this.points = new List<Point>();
+            this.points = new List<Point>(iterator.PointsCount);
         }
 
-        public async Task<Circle> CalculateCircle()
+        public async Task<Circle> CalculateCircleAync()
         {
             var firstPoints = (await iterator.GetManyAsync(2)).ToArray();
             var nextPointTask = iterator.GetNextAsync();
 
-            var circle = Circle.FromTwoPoints(firstPoints[0], firstPoints[1]);
+            var circle = CreateCircle.FromTwoPoints(firstPoints[0], firstPoints[1]);
             points.AddRange(firstPoints);
 
             var count = iterator.PointsCount;
@@ -57,30 +55,30 @@ namespace SmallestCircle.Calculation
 
             Parallel.ForEach(existingPoints, paralelOptions, (otherPoint, loopstate) =>
             {
-                var circle = Circle.FromTwoPoints(newPoint, otherPoint);
-
+                var circle = CreateCircle.FromTwoPoints(newPoint, otherPoint);
+             
                 if (existingPoints.All(circle.ContainsPoint))
                 {
-                    minCircle = circle;
-                    loopstate.Stop();
+                    if (minCircle == null || circle < minCircle)
+                    {
+                        minCircle = circle;
+                        loopstate.Stop();
+                    }
                 }
             });
 
-            if (minCircle != null)
+            if (minCircle == null)
             {
                 Parallel.For(0, existingPoints.Count, paralelOptions, (i, loopstate) =>
                 {
                     for (int j = i + 1; j < existingPoints.Count; j++)
                     {
-                        if (minCircle != null)
-                            loopstate.Stop();
-
-                        var circle = Circle.FromThreePoints(newPoint, existingPoints[i], existingPoints[j]);
+                        var circle = CreateCircle.FromThreePoints(newPoint, existingPoints[i], existingPoints[j]);
 
                         if (existingPoints.All(circle.ContainsPoint))
                         {
-                            minCircle = circle;
-                            loopstate.Stop();
+                            if (minCircle == null || circle < minCircle)
+                                minCircle = circle;
                         }
                     }
                 }); 

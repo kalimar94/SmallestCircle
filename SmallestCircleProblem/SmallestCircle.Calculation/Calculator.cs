@@ -7,16 +7,17 @@ using SmallestCircle.Calculation.Geometry;
 
 namespace SmallestCircle.Calculation
 {
-    public class Calculator
+    public class Calculator : CalculatorBase
     {
         private IPointsIterator iterator;
         private List<Point> points;
 
+       
         public Calculator(IPointsIterator iterator)
         {
             this.iterator = iterator;
             this.points = new List<Point>(iterator.PointsCount);
-        }
+        }       
 
         public Circle CalculateCircle()
         {
@@ -28,6 +29,8 @@ namespace SmallestCircle.Calculation
 
             while (nextPoint != null)
             {
+                //DrawPoint(nextPoint); raise event for drawning a point
+                PointProcessed(this, new OnPointDrawEventArgs(nextPoint));
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
@@ -37,7 +40,9 @@ namespace SmallestCircle.Calculation
                 points.Add(nextPoint);
                 nextPoint = iterator.GetNext();
             }
+            //raise event for drawing a circle
 
+            CircleFound(this, new OnCircleDrawEventArgs(circle));
             return circle;
         }
 
@@ -72,7 +77,7 @@ namespace SmallestCircle.Calculation
                     }
                 }
             }
-
+           
             return minCircle;
         }
     }

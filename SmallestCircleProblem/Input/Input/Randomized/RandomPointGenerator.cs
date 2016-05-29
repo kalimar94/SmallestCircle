@@ -18,7 +18,7 @@ namespace SmallestCircle.Data.Input.Randomized
             this.generator = new Random();
         }
 
-        public int PointsCount { get; private set; }
+        public int PointsCount { get; set; }
 
         public IEnumerable<Point> GetAll()
         {

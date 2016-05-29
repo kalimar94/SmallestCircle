@@ -1,4 +1,5 @@
-﻿using SmallestCircle.Data;
+﻿using SmallestCircle.Calculation;
+using SmallestCircle.Data;
 using SmallestCircle.Data.Input.Randomized;
 using System;
 using System.Windows;
@@ -12,47 +13,40 @@ namespace SmallestCircle.Presentation
     /// </summary>
     public partial class MainWindow : Window
     {
+        private Calculator calculator;
+        private RandomPointGenerator generator;
+
         public MainWindow()
         {
             InitializeComponent();
+            generator = new RandomPointGenerator(10, 10, 450);
+            calculator = new Calculator(generator);
+
+            calculator.OnPointProcessed += OnPointDraw;
+            calculator.OnCircleFound += OnCircleDraw;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
-        {
-            var generator = new RandomPointGenerator(3, 50, 450);
-            var allPoints = generator.GetAll();
-
-            var calculator = new Calculation.Calculator(generator);  
-                     
-          
+        {            
             try
             {
-
-                foreach (var point in allPoints)
-                {
-                    var circle = new Circle(point, 2);                    
-
-                    var myEllipseGeometry = new EllipseGeometry();
-                    myEllipseGeometry.Center = new System.Windows.Point(circle.Center.X, circle.Center.Y);
-                    myEllipseGeometry.RadiusX = circle.Radius;
-                    myEllipseGeometry.RadiusY = circle.Radius;
-
-                    Path myPath = new Path();
-                    myPath.Stroke = Brushes.Black;
-                    myPath.StrokeThickness = 1;
-                    myPath.Data = myEllipseGeometry;
-
-                    DrawingArea.Children.Add(myPath);
-                }
-               
-               
-
-
+                generator.PointsCount = 13;
+                calculator.CalculateCircle();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        protected void OnPointDraw(object sender, OnPointDrawEventArgs e)
+        {
+            DrawPoint(e.Point);
+        }
+
+        protected void OnCircleDraw(object sender, OnCircleDrawEventArgs e)
+        {
+            DrawCircle(e.Circle);
         }
 
         public void DrawPoint(Data.Point point)
@@ -66,16 +60,15 @@ namespace SmallestCircle.Presentation
 
             Path myPath = new Path();
             myPath.Stroke = Brushes.Black;
+            myPath.Fill = Brushes.Black;
             myPath.StrokeThickness = 1;
             myPath.Data = myEllipseGeometry;
 
             DrawingArea.Children.Add(myPath);
         }
 
-        public void DrawCircle(Data.Point point, double radius)
+        public void DrawCircle(Data.Circle circle)
         {
-            var circle = new Circle(point, radius);
-
             var myEllipseGeometry = new EllipseGeometry();
             myEllipseGeometry.Center = new System.Windows.Point(circle.Center.X, circle.Center.Y);
             myEllipseGeometry.RadiusX = circle.Radius;

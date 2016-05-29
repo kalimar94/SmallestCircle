@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SmallestCircle.Calculation
 {
 
-    public class MultiCalculator
+    public class MultiCalculator : CalculatorBase
     {
         private IAsyncPointsIterator iterator;
         private List<Point> points;
@@ -34,6 +34,7 @@ namespace SmallestCircle.Calculation
 
             while (nextPoint != null)
             {
+                PointProcessed(this, new OnPointDrawEventArgs(nextPoint));
                 nextPointTask = iterator.GetNextAsync();
 
                 if (!circle.ContainsPoint(nextPoint))
@@ -45,6 +46,7 @@ namespace SmallestCircle.Calculation
                 points.Add(nextPoint);
                 nextPoint = await nextPointTask;
             }
+            CircleFound(this, new OnCircleDrawEventArgs(circle));
             return circle;
         }
 

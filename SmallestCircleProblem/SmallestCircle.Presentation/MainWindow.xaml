@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="466.81" Width="696.779">
     <Grid Margin="20,21,15,43" Name="DrawingArea">
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="28" Margin="136,380,0,-36" VerticalAlignment="Top" Width="273" Click="button_Click"/>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="28" Margin="10,380,0,-36" VerticalAlignment="Top" Width="273" Click="button_Click"/>
+        <Button x:Name="buttonAync" Content="ButtonAync" HorizontalAlignment="Left" Height="28" Margin="359,380,0,-36" VerticalAlignment="Top" Width="273" Click="buttonAync_Click"/>
+
     </Grid>
 </Window>

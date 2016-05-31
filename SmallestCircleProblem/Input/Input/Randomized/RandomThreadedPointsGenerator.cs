@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -15,7 +13,7 @@ namespace SmallestCircle.Data.Input.Randomized
         readonly ThreadLocal<Random> random =
                  new ThreadLocal<Random>(() => new Random(GetSeed()));
 
-        public int PointsCount { get; private set; }
+        public int PointsCount { get; set; }
 
         public RandomThreadedPointsGenerator(int pointsCount, int min, int max)
         {

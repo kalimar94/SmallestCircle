@@ -15,12 +15,19 @@ namespace SmallestCircle.Presentation
     {
         private Calculator calculator;
         private RandomPointGenerator generator;
+        private RandomThreadedPointsGenerator threadGenerator;
+        private MultiCalculator multiCalc;
 
         public MainWindow()
         {
             InitializeComponent();
             generator = new RandomPointGenerator(10, 10, 450);
+            threadGenerator = new RandomThreadedPointsGenerator(88, 10, 450);
             calculator = new Calculator(generator);
+            multiCalc = new MultiCalculator(threadGenerator, 4);
+
+            multiCalc.OnPointProcessed += OnPointDraw;
+            multiCalc.OnCircleFound += OnCircleDraw;
 
             calculator.OnPointProcessed += OnPointDraw;
             calculator.OnCircleFound += OnCircleDraw;
@@ -38,7 +45,7 @@ namespace SmallestCircle.Presentation
                 MessageBox.Show(ex.ToString());
             }
         }
-
+       
         protected void OnPointDraw(object sender, OnPointDrawEventArgs e)
         {
             DrawPoint(e.Point);
@@ -80,6 +87,19 @@ namespace SmallestCircle.Presentation
             myPath.Data = myEllipseGeometry;
 
             DrawingArea.Children.Add(myPath);
+        }
+
+        private async void buttonAync_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                threadGenerator.PointsCount = 13;
+                await multiCalc.CalculateCircleAync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

@@ -2,6 +2,8 @@
 using SmallestCircle.Data;
 using SmallestCircle.Data.Input.Randomized;
 using System;
+using System.Linq;
+using System.Threading;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -13,30 +15,24 @@ namespace SmallestCircle.Presentation
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Calculator calculator;
-        private RandomPointGenerator generator;
-        private RandomThreadedPointsGenerator threadGenerator;
-        private MultiCalculator multiCalc;
+
 
         public MainWindow()
         {
             InitializeComponent();
-            generator = new RandomPointGenerator(10, 10, 450);
-            threadGenerator = new RandomThreadedPointsGenerator(88, 10, 450);
-            calculator = new Calculator(generator);
-            multiCalc = new MultiCalculator(threadGenerator, 4);
-
-            multiCalc.OnPointProcessed += OnPointDraw;
-            multiCalc.OnCircleFound += OnCircleDraw;
-
-            calculator.OnPointProcessed += OnPointDraw;
-            calculator.OnCircleFound += OnCircleDraw;
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {            
             try
             {
+                var max = Math.Min(DrawingArea.ActualWidth, DrawingArea.ActualHeight) - 50;
+                var generator = new RandomPointGenerator(1000, 50, (int)max);
+                var calculator = new Calculator(generator);
+
+                calculator.OnPointProcessed += OnPointDraw;
+                calculator.OnCircleFound += OnCircleDraw;
+
                 generator.PointsCount = 13;
                 calculator.CalculateCircle();
             }
@@ -53,6 +49,11 @@ namespace SmallestCircle.Presentation
 
         protected void OnCircleDraw(object sender, OnCircleDrawEventArgs e)
         {
+            if (CurrentCircle != null)
+            {
+                DrawingArea.Children.Remove(CurrentCircle);
+            }
+
             DrawCircle(e.Circle);
         }
 
@@ -74,6 +75,9 @@ namespace SmallestCircle.Presentation
             DrawingArea.Children.Add(myPath);
         }
 
+        private static Path CurrentCircle;
+
+
         public void DrawCircle(Data.Circle circle)
         {
             var myEllipseGeometry = new EllipseGeometry();
@@ -86,20 +90,37 @@ namespace SmallestCircle.Presentation
             myPath.StrokeThickness = 1;
             myPath.Data = myEllipseGeometry;
 
-            DrawingArea.Children.Add(myPath);
+            CurrentCircle = myPath;
+            DrawingArea.Children.Add(CurrentCircle);
         }
+
+
+        CancellationTokenSource cancelToken;
+        DemoCalculator calculator;
+
 
         private async void buttonAync_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (calculator == null)
             {
-                threadGenerator.PointsCount = 13;
-                await multiCalc.CalculateCircleAync();
+                var max = Math.Min(DrawingArea.ActualWidth, DrawingArea.ActualHeight) - 50;
+                var threadGenerator = new RandomThreadedPointsGenerator(1000, 50, (int)max);
+                calculator = new DemoCalculator(threadGenerator, 4);
+
+                calculator.OnPointProcessed += OnPointDraw;
+                calculator.OnCircleFound += OnCircleDraw;
             }
-            catch (Exception ex)
+
+            if (cancelToken == null)
             {
-                MessageBox.Show(ex.ToString());
+                cancelToken = new CancellationTokenSource();
+                await calculator.CalculateCircleAync(cancelToken.Token);
             }
+            else
+            {
+                cancelToken.Cancel();
+                cancelToken = null;
+            }        
         }
     }
 }

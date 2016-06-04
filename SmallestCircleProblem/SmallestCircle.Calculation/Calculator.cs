@@ -30,7 +30,7 @@ namespace SmallestCircle.Calculation
             while (nextPoint != null)
             {
                 //DrawPoint(nextPoint); raise event for drawning a point
-                PointProcessed(this, new OnPointDrawEventArgs(nextPoint));
+                RaisePointProcessed(this, new OnPointDrawEventArgs(nextPoint));
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
@@ -42,7 +42,7 @@ namespace SmallestCircle.Calculation
             }
             //raise event for drawing a circle
 
-            CircleFound(this, new OnCircleDrawEventArgs(circle));
+            RaiseCircleFound(this, new OnCircleDrawEventArgs(circle));
             return circle;
         }
 

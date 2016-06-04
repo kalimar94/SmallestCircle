@@ -8,12 +8,12 @@
         public delegate void CircleFoundHandler(object sender, OnCircleDrawEventArgs e);
         public event CircleFoundHandler OnCircleFound;
 
-        protected virtual void PointProcessed(object sender, OnPointDrawEventArgs e)
+        protected virtual void RaisePointProcessed(object sender, OnPointDrawEventArgs e)
         {
             OnPointProcessed?.Invoke(this, e);
         }
 
-        protected virtual void CircleFound(object sender, OnCircleDrawEventArgs e)
+        protected virtual void RaiseCircleFound(object sender, OnCircleDrawEventArgs e)
         {
             OnCircleFound?.Invoke(this, e);
         }

@@ -45,6 +45,7 @@
     <Compile Include="Geometry\CircleExtensions.cs" />
     <Compile Include="Geometry\CreateCircle.cs" />
     <Compile Include="Geometry\PointExtensions.cs" />
+    <Compile Include="DemoCalculator.cs" />
     <Compile Include="MultiCalculator.cs" />
     <Compile Include="OnCircleDrawEventArgs.cs" />
     <Compile Include="OnPointDrawEventArgs.cs" />

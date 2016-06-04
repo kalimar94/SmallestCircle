@@ -10,9 +10,9 @@ namespace SmallestCircle.Calculation
 
     public class MultiCalculator : CalculatorBase
     {
-        private IAsyncPointsIterator iterator;
-        private List<Point> points;
-        private int threadsCount;
+        protected IAsyncPointsIterator iterator;
+        protected List<Point> points;
+        protected int threadsCount;
 
         public MultiCalculator(IAsyncPointsIterator iterator, int threadsCount)
         {
@@ -21,7 +21,7 @@ namespace SmallestCircle.Calculation
             this.points = new List<Point>(iterator.PointsCount);
         }
 
-        public async Task<Circle> CalculateCircleAync()
+        public virtual async Task<Circle> CalculateCircleAync()
         {
             var firstPoints = (await iterator.GetManyAsync(2)).ToArray();
             var nextPointTask = iterator.GetNextAsync();
@@ -34,23 +34,24 @@ namespace SmallestCircle.Calculation
 
             while (nextPoint != null)
             {
-                PointProcessed(this, new OnPointDrawEventArgs(nextPoint));
+                RaisePointProcessed(this, new OnPointDrawEventArgs(nextPoint));
                 nextPointTask = iterator.GetNextAsync();
 
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
                     circle = FindCircleCombination(nextPoint, points);
+                    RaiseCircleFound(this, new OnCircleDrawEventArgs(circle));
                 }
 
                 points.Add(nextPoint);
                 nextPoint = await nextPointTask;
             }
-            CircleFound(this, new OnCircleDrawEventArgs(circle));
+            RaiseCircleFound(this, new OnCircleDrawEventArgs(circle));
             return circle;
         }
 
-        private Circle FindCircleCombination(Point newPoint, IList<Point> existingPoints)
+        protected Circle FindCircleCombination(Point newPoint, IList<Point> existingPoints)
         {
             var paralelOptions = new ParallelOptions { MaxDegreeOfParallelism = threadsCount };
             Circle minCircle = null;
@@ -58,7 +59,7 @@ namespace SmallestCircle.Calculation
             Parallel.ForEach(existingPoints, paralelOptions, (otherPoint, loopstate) =>
             {
                 var circle = CreateCircle.FromTwoPoints(newPoint, otherPoint);
-             
+
                 if (existingPoints.All(circle.ContainsPoint))
                 {
                     if (minCircle == null || circle < minCircle)
@@ -83,7 +84,7 @@ namespace SmallestCircle.Calculation
                                 minCircle = circle;
                         }
                     }
-                }); 
+                });
             }
 
             return minCircle;

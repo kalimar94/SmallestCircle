@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmallestCircle.Presentation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="466.81" Width="696.779">
-    <Grid Margin="20,21,15,43" Name="DrawingArea">
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="28" Margin="10,380,0,-36" VerticalAlignment="Top" Width="273" Click="button_Click"/>
-        <Button x:Name="buttonAync" Content="ButtonAync" HorizontalAlignment="Left" Height="28" Margin="359,380,0,-36" VerticalAlignment="Top" Width="273" Click="buttonAync_Click"/>
-
+        Title="MainWindow" Height="575.072" Width="600.418" MinHeight="400" MinWidth="400">
+    <Grid>
+        <Border BorderBrush="#FF0000" BorderThickness="1" Margin="0,0,10,43">
+            <Grid Name="DrawingArea" />
+        </Border>
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="28" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="273" Click="button_Click"/>
+        <Button x:Name="buttonAync" Content="ButtonAync" HorizontalAlignment="Right" Height="28" Margin="0,0,36,10" VerticalAlignment="Bottom" Width="273" Click="buttonAync_Click"/>
     </Grid>
 </Window>

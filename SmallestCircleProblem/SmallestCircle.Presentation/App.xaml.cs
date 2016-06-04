@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Threading;
 
 namespace SmallestCircle.Presentation
 {
@@ -13,5 +8,15 @@ namespace SmallestCircle.Presentation
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            this.DispatcherUnhandledException += OnException;
+        }
+
+        void OnException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show($"An unhandled exception occurred: { e.Exception.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            e.Handled = true;
+        }
     }
 }

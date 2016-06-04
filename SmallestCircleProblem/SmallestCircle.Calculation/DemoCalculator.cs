@@ -19,7 +19,7 @@ namespace SmallestCircle.Calculation
 
         }
 
-        public async Task<Circle> CalculateCircleAync(CancellationToken token)
+        public async Task<Circle> CalculateCircleAsync(CancellationToken token)
         {
             var nextPointTask = iterator.GetNextAsync();
             if (points.Count < 2)

@@ -10,7 +10,8 @@
         <Border BorderBrush="#FF0000" BorderThickness="1" Margin="0,0,10,43">
             <Grid Name="DrawingArea" />
         </Border>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="28" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="273" Click="button_Click"/>
-        <Button x:Name="buttonAync" Content="ButtonAync" HorizontalAlignment="Right" Height="28" Margin="0,0,36,10" VerticalAlignment="Bottom" Width="273" Click="buttonAync_Click"/>
+        <Button x:Name="button" Content="Calculate All" HorizontalAlignment="Left" Height="28" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="171" Click="button_Click"/>
+        <Button x:Name="buttonAync" Content="Start" HorizontalAlignment="Right" Height="28" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="144" Click="buttonAync_Click" />
+        <TextBox x:Name="pointsCountBox" Height="28" Margin="186,0,159,10" TextWrapping="Wrap" Text="1000" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

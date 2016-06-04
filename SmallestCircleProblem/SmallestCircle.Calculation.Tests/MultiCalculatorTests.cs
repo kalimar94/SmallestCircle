@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SmallestCircle.Calculation.Tests
 {
-    [TestClass()]
+    [TestClass]
     public class MultiCalculatorTests
     {
         private MultiCalculator calculator;

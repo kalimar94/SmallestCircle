@@ -36,9 +36,9 @@ namespace SmallestCircle.Data.Input.Randomized.Tests
         [TestMethod]
         public void GetAllAsyncTest()
         {
-            var randomPoints = generator.GetAll();
+            var randomPoints = generator.GetAll().ToList();
 
-            Assert.AreEqual(Count, randomPoints.Count());
+            Assert.AreEqual(Count, randomPoints.Count);
             Assert.IsTrue(randomPoints.All(p => Min <= p.X && p.X <= Max));
             Assert.IsTrue(randomPoints.All(p => Min <= p.Y && p.Y <= Max));
         }

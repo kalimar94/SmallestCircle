@@ -49,6 +49,8 @@
     <Compile Include="MultiCalculator.cs" />
     <Compile Include="OnCircleDrawEventArgs.cs" />
     <Compile Include="OnPointDrawEventArgs.cs" />
+    <Compile Include="OnThreadStartEventArgs.cs" />
+    <Compile Include="OnThreadStopEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

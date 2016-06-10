@@ -1,7 +1,6 @@
 ﻿using SmallestCircle.Calculation.Geometry;
 using SmallestCircle.Data;
 using SmallestCircle.Data.Input;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,8 +12,8 @@ namespace SmallestCircle.Calculation
     {
         private Circle circle;
 
-        public DemoCalculator(IAsyncPointsIterator iterator, int threadsCount)
-         :base(iterator, threadsCount)
+        public DemoCalculator(IAsyncPointsIterator iterator, int threadsCount, bool isQuiet)
+         :base(iterator, threadsCount, isQuiet)
         {
 
         }

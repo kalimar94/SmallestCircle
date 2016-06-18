@@ -17,7 +17,7 @@ namespace SmallestCircle.Calculation
         public bool IsQuiet;
 
 
-        public MultiCalculator(IAsyncPointsIterator iterator, int threadsCount, bool isQuiet)
+        public MultiCalculator(IAsyncPointsIterator iterator, int threadsCount, bool isQuiet = false)
         {
             this.iterator = iterator;
             this.threadsCount = threadsCount;

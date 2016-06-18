@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SmallestCircle.Data.Input.File
 {
+    /// <summary>
+    /// Can read and iterate through collection of points from a file
+    /// </summary>
     public class FilePointsInterator : IPointsIterator, IAsyncPointsIterator, IDisposable
     {
         private string fileName;

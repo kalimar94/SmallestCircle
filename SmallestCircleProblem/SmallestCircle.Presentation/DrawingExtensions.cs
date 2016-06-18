@@ -32,6 +32,9 @@ namespace SmallestCircle.Presentation
 
         public static Path DrawCircle(this IAddChild element, Circle circle)
         {
+            if (circle == null)
+                return null;
+
             var ellipseGeometry = new EllipseGeometry
             {
                 Center = new System.Windows.Point(circle.Center.X, circle.Center.Y),
@@ -43,7 +46,8 @@ namespace SmallestCircle.Presentation
             {
                 Stroke = Brushes.Black,
                 StrokeThickness = 1,
-                Data = ellipseGeometry
+                Data = ellipseGeometry,
+                AllowDrop = true
             };
 
             element.AddChild(pathData);

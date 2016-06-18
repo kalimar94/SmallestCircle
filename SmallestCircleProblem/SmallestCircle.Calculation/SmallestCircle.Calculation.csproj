@@ -46,11 +46,12 @@
     <Compile Include="Geometry\CreateCircle.cs" />
     <Compile Include="Geometry\PointExtensions.cs" />
     <Compile Include="DemoCalculator.cs" />
+    <Compile Include="LinearCalculator.cs" />
     <Compile Include="MultiCalculator.cs" />
-    <Compile Include="OnCircleDrawEventArgs.cs" />
-    <Compile Include="OnPointDrawEventArgs.cs" />
-    <Compile Include="OnThreadStartEventArgs.cs" />
-    <Compile Include="OnThreadStopEventArgs.cs" />
+    <Compile Include="Events\OnCircleDrawEventArgs.cs" />
+    <Compile Include="Events\OnPointDrawEventArgs.cs" />
+    <Compile Include="Events\OnThreadStartEventArgs.cs" />
+    <Compile Include="Events\OnThreadStopEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

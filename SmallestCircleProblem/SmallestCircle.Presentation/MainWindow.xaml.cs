@@ -24,7 +24,7 @@ namespace SmallestCircle.Presentation
         {
             var max = Math.Min(DrawingArea.ActualWidth, DrawingArea.ActualHeight) - Offset;
             var generator = new RandomPointGenerator(int.Parse(pointsCountBox.Text), Offset, (int)max);
-            var calculator = new Calculator(generator);
+            var calculator = new LinearCalculator(generator);
 
             calculator.OnPointProcessed += OnPointDraw;
             calculator.OnCircleFound += OnCircleDraw;

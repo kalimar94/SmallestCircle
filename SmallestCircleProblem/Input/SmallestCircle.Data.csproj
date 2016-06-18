@@ -43,9 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Circle.cs" />
-    <Compile Include="Input\File\FilePointsInterator.cs" />
+    <Compile Include="Input\Predefined\FilePointsInterator.cs" />
     <Compile Include="Input\IAsyncPointsIterator.cs" />
     <Compile Include="Input\IPointsIterator.cs" />
+    <Compile Include="Input\Predefined\ListPointsIterator.cs" />
     <Compile Include="Input\Randomized\RandomPointGenerator.cs" />
     <Compile Include="Input\Randomized\RandomThreadedPointsGenerator.cs" />
     <Compile Include="Point.cs" />

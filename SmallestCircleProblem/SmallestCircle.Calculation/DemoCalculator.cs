@@ -26,9 +26,14 @@ namespace SmallestCircle.Calculation
             var nextPointTask = iterator.GetNextAsync();
             if (points.Count < 2)
             {
+                // Read the first two points:
                 var firstPoints = (await iterator.GetManyAsync(2)).ToArray();
                
                 circle = CreateCircle.FromTwoPoints(firstPoints[0], firstPoints[1]);
+
+                RaisePointProcessed(this, new OnPointDrawEventArgs(firstPoints[0]));
+                RaisePointProcessed(this, new OnPointDrawEventArgs(firstPoints[1]));
+                RaiseCircleFound(this, new OnCircleDrawEventArgs(circle));
                 points.AddRange(firstPoints);
             }
 

@@ -6,8 +6,9 @@
              xmlns:local="clr-namespace:SmallestCircle.Presentation"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Margin="0,0,0,23">
+    <Grid Margin="0,0,0,30">
         <Canvas Name="DrawingArea" MouseLeftButtonUp="DrawingArea_MouseLeftButtonUp" Background="Transparent" />
-        <Button x:Name="ClearBtn" Content="Clear" Height="21" Margin="74,0,44,-21" VerticalAlignment="Bottom" Width="182" Click="ClearBtn_Click" />
+        <Button x:Name="ClearBtn" Content="Clear" Height="28" Margin="10,0,171,-30" MaxWidth="600" VerticalAlignment="Bottom" Click="ClearBtn_Click" />
+        <Button x:Name="ExportBtn" Content="Export Points" Height="28" Margin="0,0,10,-30" VerticalAlignment="Bottom" Click="ExportBtn_Click" MaxWidth="300" HorizontalAlignment="Right" Width="130" />
     </Grid>
 </UserControl>

@@ -14,13 +14,13 @@
     public class LinearCalculator : CalculatorBase
     {
         private IPointsIterator iterator;
-        private List<Point> points;
+        public List<Point> Points { get; private set; }
 
 
         public LinearCalculator(IPointsIterator iterator)
         {
             this.iterator = iterator;
-            this.points = new List<Point>(iterator.PointsCount);
+            this.Points = new List<Point>(iterator.PointsCount);
         }
 
         public Circle CalculateCircle()
@@ -31,7 +31,7 @@
             var firstPoints = iterator.GetMany(count: 2).ToArray();
             var circle = CreateCircle.FromTwoPoints(firstPoints[0], firstPoints[1]);
 
-            points.AddRange(firstPoints);
+            Points.AddRange(firstPoints);
             var nextPoint = iterator.GetNext();
 
             while (nextPoint != null)
@@ -41,10 +41,10 @@
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
-                    circle = MakeCircleOnePoint(nextPoint, points);
+                    circle = MakeCircleOnePoint(nextPoint, Points);
                 }
 
-                points.Add(nextPoint);
+                Points.Add(nextPoint);
                 nextPoint = iterator.GetNext();
             }
             //raise event for drawing a circle

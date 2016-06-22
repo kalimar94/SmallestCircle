@@ -1,11 +1,15 @@
-﻿using SmallestCircle.Calculation;
+﻿using Microsoft.Win32;
+using SmallestCircle.Calculation;
 using SmallestCircle.Data;
 using SmallestCircle.Data.Input.Predefined;
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Shapes;
 using Point = SmallestCircle.Data.Point;
+using Path = System.Windows.Shapes.Path;
+using System;
 
 namespace SmallestCircle.Presentation
 {
@@ -52,6 +56,29 @@ namespace SmallestCircle.Presentation
         {
             points.Clear();
             DrawingArea.Children.Clear();
+        }
+
+        private void ExportBtn_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine($"{points.Count}");
+
+            foreach (var p in points)
+            {
+                sb.AppendLine($"{Math.Floor(p.X)} {Math.Floor(p.Y)}");
+            }
+
+            var dialog = new SaveFileDialog
+            {
+                DefaultExt = ".txt",
+                Filter = "Text documents (.txt)|*.txt"
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                var filePath = dialog.FileName;
+                File.WriteAllText(filePath, sb.ToString());
+            }
         }
     }
 }

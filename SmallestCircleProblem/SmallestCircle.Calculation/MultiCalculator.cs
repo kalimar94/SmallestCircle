@@ -25,7 +25,7 @@ namespace SmallestCircle.Calculation
             this.IsQuiet = isQuiet;
         }
 
-        public virtual async Task<Circle> CalculateCircleAync()
+        public virtual async Task<Circle> CalculateCircleAsync()
         {
             var firstPoints = (await iterator.GetManyAsync(2)).ToArray();
             var nextPointTask = iterator.GetNextAsync();

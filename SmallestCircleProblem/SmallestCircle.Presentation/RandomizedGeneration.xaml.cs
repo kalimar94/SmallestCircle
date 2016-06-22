@@ -9,7 +9,6 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using Path = System.Windows.Shapes.Path;
-using Point = SmallestCircle.Data.Point;
 
 namespace SmallestCircle.Presentation
 {

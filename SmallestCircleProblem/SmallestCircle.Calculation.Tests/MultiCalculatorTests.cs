@@ -29,7 +29,7 @@ namespace SmallestCircle.Calculation.Tests
         [TestMethod]
         public async Task ThreadedCalculateCircleTest()
         {
-            var circle = await calculator.CalculateCircleAync();
+            var circle = await calculator.CalculateCircleAsync();
 
             var maxRadius = Max * Max;
 

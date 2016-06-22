@@ -7,7 +7,7 @@
     <ProjectGuid>{2015C2A4-3BC0-49FA-9EDB-8AB56F2FFE1B}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SmallestCircle.Console</RootNamespace>
+    <RootNamespace>SmallestCircle.ConsoleMode</RootNamespace>
     <AssemblyName>SmallestCircle.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StartArguments.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

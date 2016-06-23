@@ -13,7 +13,7 @@ namespace SmallestCircle.Calculation
     {
         private Circle circle;
 
-        public List<Point> Points => this.points;
+        public LinkedList<Point> Points => this.points;
 
         public DemoCalculator(IAsyncPointsIterator iterator, int threadsCount, bool isQuiet)
          :base(iterator, threadsCount)
@@ -34,7 +34,8 @@ namespace SmallestCircle.Calculation
                 RaisePointProcessed(this, new OnPointDrawEventArgs(firstPoints[0]));
                 RaisePointProcessed(this, new OnPointDrawEventArgs(firstPoints[1]));
                 RaiseCircleFound(this, new OnCircleDrawEventArgs(circle));
-                points.AddRange(firstPoints);
+                points.AddLast(firstPoints[0]);
+                points.AddLast(firstPoints[1]);
             }
 
             var count = iterator.PointsCount;
@@ -50,11 +51,11 @@ namespace SmallestCircle.Calculation
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
-                    circle = FindCircleCombination(nextPoint, points);
+                    circle = FindCircleCombination(nextPoint);
                     RaiseCircleFound(this, new OnCircleDrawEventArgs(circle));
                 }
 
-                points.Add(nextPoint);
+                points.AddFirst(nextPoint);
                 nextPoint = await nextPointTask;
                 await Task.Delay(300);
             }

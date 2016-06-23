@@ -92,7 +92,7 @@ namespace SmallestCircle.Presentation
 
         private void ExportBtn_Click(object sender, RoutedEventArgs e)
         {
-            var points = calculator?.Points ?? linearCalculator?.Points ;
+            var points = calculator?.Points as ICollection<Data.Point> ?? linearCalculator?.Points ;
 
             if (points == null)
             {

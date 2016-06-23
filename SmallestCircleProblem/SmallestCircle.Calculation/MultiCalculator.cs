@@ -82,7 +82,7 @@ namespace SmallestCircle.Calculation
                 Parallel.ForEach(points, paralelOptions, (otherPoint, loopstate) =>
                 {
                     var circle = FindCircleThroughTwoPoints(points, newPoint, otherPoint);
-                    if (circle < minCircle)
+                    if (minCircle == null || circle < minCircle)
                     {
                         minCircle = circle;
                     }

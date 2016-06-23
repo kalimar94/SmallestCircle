@@ -24,7 +24,7 @@ namespace SmallestCircle.ConsoleMode
 
             var arguments = StartArguments.ParseArgs(args);
 
-           // var circle = TestLinearCalculator(arguments.PointsFile);
+           //var circle = TestLinearCalculator(arguments.PointsFile);
 
             var circle = TestMultiCalculator(arguments.PointsFile, 4);
 
@@ -56,25 +56,7 @@ namespace SmallestCircle.ConsoleMode
             var circle = multiCalc.CalculateCircleAsync().Result;
 
             return circle;
-        }
-
-        static async Task MainAsync()
-        {
-            pointsGenerator = new RandomThreadedPointsGenerator(10000, 0, 47483647);
-
-            var path = @"E:\Projects\SPO\SmallestCircleProblem\test.txt";
-
-            var points = await pointsGenerator.GetAllAsync();
-
-            var sb = new StringBuilder();
-
-            foreach (var p in points)
-            {
-                sb.AppendLine($"{Math.Floor(p.X)} {Math.Floor(p.Y)}");
-            }
-
-            File.WriteAllText(path, sb.ToString());
-        }
+        }     
 
 
         protected static void OnThreadStart(object sender, OnThreadStartEventArgs e)

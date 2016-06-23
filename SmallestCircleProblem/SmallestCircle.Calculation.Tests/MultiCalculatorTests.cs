@@ -12,7 +12,7 @@ namespace SmallestCircle.Calculation.Tests
         private MultiCalculator calculator;
         private IAsyncPointsIterator iterator;
 
-        const int PointsCount = 500;
+        const int PointsCount = 5000;
         const int Min = 0;
         const int Max = 1500;
 

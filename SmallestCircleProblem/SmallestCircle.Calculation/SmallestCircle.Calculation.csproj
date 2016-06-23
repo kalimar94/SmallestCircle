@@ -41,7 +41,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
-    <Compile Include="CalculatorBase.cs" />
     <Compile Include="Geometry\CircleExtensions.cs" />
     <Compile Include="Geometry\CreateCircle.cs" />
     <Compile Include="Geometry\PointExtensions.cs" />

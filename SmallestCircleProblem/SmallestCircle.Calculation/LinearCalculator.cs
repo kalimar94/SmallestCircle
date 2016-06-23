@@ -11,7 +11,7 @@
     /// <summary>
     /// This calculator uses the famous algorithm of Emo Welzl, claiming to find the smallest enclosing circle in linear time
     /// </summary>
-    public class LinearCalculator : CalculatorBase
+    public class LinearCalculator
     {
         private IPointsIterator iterator;
         public List<Point> Points { get; private set; }
@@ -37,7 +37,6 @@
             while (nextPoint != null)
             {
                 //DrawPoint(nextPoint); raise event for drawning a point
-                RaisePointProcessed(this, new OnPointDrawEventArgs(nextPoint));
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
@@ -49,7 +48,6 @@
             }
             //raise event for drawing a circle
 
-            RaiseCircleFound(this, new OnCircleDrawEventArgs(circle));
             return circle;
         }
 

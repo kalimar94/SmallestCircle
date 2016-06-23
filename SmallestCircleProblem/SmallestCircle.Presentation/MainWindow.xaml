@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmallestCircle.Presentation"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="400" MinWidth="400">
+        Title="MainWindow" MinHeight="400" MinWidth="400" Width="800" Height="800">
     <Grid>
             
-        <TabControl x:Name="tabControl" >
+        <TabControl x:Name="tabControl">
             <TabItem Header="Random Points">
                 <local:RandomizedGeneration />
             </TabItem>

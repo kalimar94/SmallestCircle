@@ -32,10 +32,10 @@ namespace SmallestCircle.Presentation
             var generator = new RandomPointGenerator(int.Parse(pointsCountBox.Text), Offset, (int)max);
             linearCalculator = new LinearCalculator(generator);
 
-            linearCalculator.OnPointProcessed += OnPointDraw;
-            linearCalculator.OnCircleFound += OnCircleDraw;
-            
-            linearCalculator.CalculateCircle();
+            var circle = linearCalculator.CalculateCircle();
+
+            linearCalculator.Points.ForEach(p => DrawingArea.DrawPoint(p));
+            OnCircleDraw(this, new OnCircleDrawEventArgs(circle));
         }
 
         protected void OnPointDraw(object sender, OnPointDrawEventArgs e)
@@ -64,8 +64,8 @@ namespace SmallestCircle.Presentation
         {
             if (calculator == null)
             {
-                //var max = Math.Min(DrawingArea.ActualWidth, DrawingArea.ActualHeight) - Offset;
-                var max = int.MaxValue;
+                var max = Math.Min(DrawingArea.ActualWidth, DrawingArea.ActualHeight) - Offset;
+                //var max = int.MaxValue;
                 pointGenerator = new RandomThreadedPointsGenerator(int.Parse(pointsCountBox.Text), Offset, (int)max);
                 calculator = new DemoCalculator(pointGenerator, 4, false);
 
@@ -120,7 +120,6 @@ namespace SmallestCircle.Presentation
                 File.WriteAllText(filePath, sb.ToString());
             }
         }
-
 
         private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {

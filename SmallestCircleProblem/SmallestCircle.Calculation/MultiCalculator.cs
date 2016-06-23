@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace SmallestCircle.Calculation
 {
 
-    public class MultiCalculator : CalculatorBase
+    public class MultiCalculator
     {
         protected IAsyncPointsIterator iterator;
         protected List<Point> points;
@@ -23,7 +23,7 @@ namespace SmallestCircle.Calculation
             this.points = new List<Point>(iterator.PointsCount);
         }
 
-        public virtual async Task<Circle> CalculateCircleAsync()
+        public async Task<Circle> CalculateCircleAsync()
         {
             var firstPoints = (await iterator.GetManyAsync(2)).ToArray();
             var nextPointTask = iterator.GetNextAsync();
@@ -36,7 +36,6 @@ namespace SmallestCircle.Calculation
 
             while (nextPoint != null)
             {
-                RaisePointProcessed(this, new OnPointDrawEventArgs(nextPoint));
                 nextPointTask = iterator.GetNextAsync();
 
                 if (!circle.ContainsPoint(nextPoint))
@@ -51,20 +50,16 @@ namespace SmallestCircle.Calculation
             return circle;
         }
 
-        protected Circle FindCircleCombination(Point newPoint, IList<Point> existingPoints)
+        private Circle FindCircleCombination(Point newPoint, IList<Point> existingPoints)
         {
             var paralelOptions = new ParallelOptions { MaxDegreeOfParallelism = threadsCount };
             Circle minCircle = null;
 
-            var currentThread = 1;
-
-
             Parallel.ForEach(existingPoints, paralelOptions, (otherPoint, loopstate) =>
             {
-                var thread = System.Threading.Thread.CurrentThread.ManagedThreadId;
                 var circle = CreateCircle.FromTwoPoints(newPoint, otherPoint);
 
-                if (existingPoints.All(circle.ContainsPoint))
+                if (circle.ContainsAllPoints(existingPoints))
                 {
                     if (minCircle == null || circle < minCircle)
                     {
@@ -72,18 +67,17 @@ namespace SmallestCircle.Calculation
                         loopstate.Stop();
                     }
                 }
-            });           
+            });   
+                    
             if (minCircle == null)
-            {
-                currentThread++;
-               
+            {                              
                 Parallel.For(0, existingPoints.Count, paralelOptions, (i, loopstate) =>
                 {
                     for (int j = i + 1; j < existingPoints.Count; j++)
                     {
                         var circle = CreateCircle.FromThreePoints(newPoint, existingPoints[i], existingPoints[j]);
 
-                        if (existingPoints.All(circle.ContainsPoint))
+                        if (circle.ContainsAllPoints(existingPoints))
                         {
                             if (minCircle == null || circle < minCircle)
                             {
@@ -94,9 +88,6 @@ namespace SmallestCircle.Calculation
                 });             
 
             }
-
-            currentThread++;
-
             return minCircle;
         }
     }

@@ -36,7 +36,7 @@ namespace SmallestCircle.Calculation.Geometry
         }
 
         /// <summary>
-        /// Creates a Circumscribed circle through 3 points it it is impossible to create the circle returns null
+        /// Creates a Circumscribed circle through 3 points, however if it is impossible to create the circle returns null
         /// </summary>
         public static Circle TryFromThreePoints(Point p0, Point p1, Point p2)
         {

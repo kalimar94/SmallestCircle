@@ -44,7 +44,7 @@ namespace SmallestCircle.ConsoleMode
                             pointsCount = int.Parse(args[++i]);
                             break;
                         case "-i":
-                            pointsFile = args[i++];
+                            pointsFile = args[++i];
                             break;
                         case "-t":
                             threadCount = int.Parse(args[++i]);

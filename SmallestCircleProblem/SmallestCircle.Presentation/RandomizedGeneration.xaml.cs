@@ -64,7 +64,8 @@ namespace SmallestCircle.Presentation
         {
             if (calculator == null)
             {
-                var max = Math.Min(DrawingArea.ActualWidth, DrawingArea.ActualHeight) - Offset;
+                //var max = Math.Min(DrawingArea.ActualWidth, DrawingArea.ActualHeight) - Offset;
+                var max = int.MaxValue;
                 pointGenerator = new RandomThreadedPointsGenerator(int.Parse(pointsCountBox.Text), Offset, (int)max);
                 calculator = new DemoCalculator(pointGenerator, 4, false);
 

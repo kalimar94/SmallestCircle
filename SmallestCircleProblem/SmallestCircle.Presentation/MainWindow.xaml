@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmallestCircle.Presentation"
         mc:Ignorable="d"
-        Title="MainWindow" Height="575.072" Width="600.418" MinHeight="400" MinWidth="400">
+        Title="MainWindow" MinHeight="400" MinWidth="400">
     <Grid>
             
         <TabControl x:Name="tabControl" >

@@ -1,8 +1,13 @@
 ﻿using SmallestCircle.Calculation;
+using SmallestCircle.Data;
 using SmallestCircle.Data.Input;
 using SmallestCircle.Data.Input.File;
 using SmallestCircle.Data.Input.Randomized;
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace SmallestCircle.ConsoleMode
 {
@@ -14,24 +19,61 @@ namespace SmallestCircle.ConsoleMode
 
         static void Main(string[] args)
         {
-            var arguments = StartArguments.ParseArgs(args);           
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
 
-            if (!String.IsNullOrEmpty(arguments.PointsFile))
-            {
-                pointsGenerator = new FilePointsInterator(arguments.PointsFile);
-            }
-            else
-            {
-                pointsGenerator = new RandomThreadedPointsGenerator(arguments.PointsCount, 0, 10240);
-            }
+            var arguments = StartArguments.ParseArgs(args);
 
-            threadCal = new DemoCalculator(pointsGenerator, arguments.ThreadCount, arguments.QuietMode);
+           // var circle = TestLinearCalculator(arguments.PointsFile);
 
-            threadCal.OnThreadStarted += OnThreadStart;
-            threadCal.OnThreadStopped += OnThreadStop;
+            var circle = TestMultiCalculator(arguments.PointsFile, 4);
 
-            threadCal.CalculateCircleAsync().Wait();
+            stopWatch.Stop();
+
+
+            Console.WriteLine($"Circle ready center: {circle.Center} r: {circle.Radius}. \n Time: {stopWatch.ElapsedMilliseconds} ms");
+
             Console.ReadKey();
+        }
+
+
+        public static Circle TestLinearCalculator(string filePath)
+        {
+            IPointsIterator pointGen = new FilePointsInterator(filePath);
+
+            var linealCalc = new LinearCalculator(pointGen);
+
+            var circle = linealCalc.CalculateCircle();
+
+            return circle;
+        }
+
+        public static Circle TestMultiCalculator(string filePath, int threadCount)
+        {
+            pointsGenerator = new FilePointsInterator(filePath);
+            threadCal = new DemoCalculator(pointsGenerator, threadCount, true);
+            var multiCalc = new MultiCalculator(pointsGenerator, 1);
+            var circle = multiCalc.CalculateCircleAsync().Result;
+
+            return circle;
+        }
+
+        static async Task MainAsync()
+        {
+            pointsGenerator = new RandomThreadedPointsGenerator(10000, 0, 47483647);
+
+            var path = @"E:\Projects\SPO\SmallestCircleProblem\test.txt";
+
+            var points = await pointsGenerator.GetAllAsync();
+
+            var sb = new StringBuilder();
+
+            foreach (var p in points)
+            {
+                sb.AppendLine($"{Math.Floor(p.X)} {Math.Floor(p.Y)}");
+            }
+
+            File.WriteAllText(path, sb.ToString());
         }
 
 

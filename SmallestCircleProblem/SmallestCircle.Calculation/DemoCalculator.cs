@@ -16,7 +16,7 @@ namespace SmallestCircle.Calculation
         public List<Point> Points => this.points;
 
         public DemoCalculator(IAsyncPointsIterator iterator, int threadsCount, bool isQuiet)
-         :base(iterator, threadsCount, isQuiet)
+         :base(iterator, threadsCount)
         {
 
         }

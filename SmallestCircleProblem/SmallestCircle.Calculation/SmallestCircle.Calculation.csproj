@@ -53,7 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Input\SmallestCircle.Data.csproj">
+    <ProjectReference Include="..\SmallestCircle.Data\SmallestCircle.Data.csproj">
       <Project>{37d31611-bb02-4fff-89bd-91fdd0b9249b}</Project>
       <Name>SmallestCircle.Data</Name>
     </ProjectReference>

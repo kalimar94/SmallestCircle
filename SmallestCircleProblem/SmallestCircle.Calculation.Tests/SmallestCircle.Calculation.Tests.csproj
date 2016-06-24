@@ -58,13 +58,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Input\SmallestCircle.Data.csproj">
-      <Project>{37d31611-bb02-4fff-89bd-91fdd0b9249b}</Project>
-      <Name>SmallestCircle.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SmallestCircle.Calculation\SmallestCircle.Calculation.csproj">
       <Project>{C7399D25-6C35-45B8-B8AD-38FCD586C883}</Project>
       <Name>SmallestCircle.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmallestCircle.Data\SmallestCircle.Data.csproj">
+      <Project>{37d31611-bb02-4fff-89bd-91fdd0b9249b}</Project>
+      <Name>SmallestCircle.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

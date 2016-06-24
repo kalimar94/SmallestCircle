@@ -59,13 +59,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Input\SmallestCircle.Data.csproj">
-      <Project>{37d31611-bb02-4fff-89bd-91fdd0b9249b}</Project>
-      <Name>SmallestCircle.Data</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SmallestCircle.Calculation\SmallestCircle.Calculation.csproj">
       <Project>{c7399d25-6c35-45b8-b8ad-38fcd586c883}</Project>
       <Name>SmallestCircle.Calculation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmallestCircle.Data\SmallestCircle.Data.csproj">
+      <Project>{37d31611-bb02-4fff-89bd-91fdd0b9249b}</Project>
+      <Name>SmallestCircle.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

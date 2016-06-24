@@ -1,6 +1,7 @@
 ﻿using SmallestCircle.Calculation.Geometry;
 using SmallestCircle.Data;
 using SmallestCircle.Data.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -18,24 +19,21 @@ namespace SmallestCircle.Calculation
         public delegate void CircleFoundHandler(object sender, OnCircleDrawEventArgs e);
         public event CircleFoundHandler OnCircleFound;
 
-        public delegate void ThreadStartedHandler(object sender, OnThreadStartEventArgs e);
-        public event ThreadStartedHandler OnThreadStarted;
-
-        public delegate void ThreadStoppedHandler(object sender, OnThreadStopEventArgs e);
-        public event ThreadStoppedHandler OnThreadStopped;
+        public delegate void NotificationEventHandler(object sender, NotificationEventArgs e);
+        public event NotificationEventHandler OnNotification;
 
 
         private Circle circle;
 
         public List<Point> Points => this.points;
 
-        public DemoCalculator(IAsyncPointsIterator iterator, int threadsCount, bool isQuiet)
+        public DemoCalculator(IAsyncPointsIterator iterator, int threadsCount)
          :base(iterator, threadsCount)
         {
 
         }
 
-        public async Task<Circle> CalculateCircleAsync(CancellationToken token)
+        public async Task<Circle> CalculateCircleAsync(CancellationToken token = default(CancellationToken))
         {
             var nextPointTask = iterator.GetNextAsync();
             if (points.Count < 2)
@@ -64,7 +62,7 @@ namespace SmallestCircle.Calculation
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
-                    circle = FindCircleCombination(nextPoint, points);
+                    circle = FindCircleCombination(nextPoint);
                     OnCircleFound?.Invoke(this, new OnCircleDrawEventArgs(circle));
                 }
 
@@ -76,40 +74,40 @@ namespace SmallestCircle.Calculation
             return circle;
         }
 
-        protected Circle FindCircleCombination(Point newPoint, IList<Point> existingPoints)
+        protected Circle FindCircleCombination(Point newPoint)
         {
             var paralelOptions = new ParallelOptions { MaxDegreeOfParallelism = threadsCount };
             Circle minCircle = null;
 
-
-            Parallel.ForEach(existingPoints, paralelOptions, (otherPoint, loopstate) =>
+            Parallel.ForEach(points, paralelOptions, (otherPoint, loopstate) =>
             {
                 var thread = Thread.CurrentThread.ManagedThreadId;
+                OnNotification?.Invoke(this, $"Thread {thread} started, searching circle through 2 points");
 
-                OnThreadStarted?.Invoke(this, new OnThreadStartEventArgs(thread));
                 var circle = CreateCircle.FromTwoPoints(newPoint, otherPoint);
 
-                if (circle.ContainsAllPoints(existingPoints))
+                if (circle.ContainsAllPoints(points))
                 {
                     if (minCircle == null || circle < minCircle)
                     {
                         minCircle = circle;
                         loopstate.Stop();
+                        OnNotification?.Invoke(this, $"Circle found, stopping all worker threads");
                     }
                 }
             });
 
             if (minCircle == null)
             {
-                Parallel.For(0, existingPoints.Count, paralelOptions, (i, loopstate) =>
+                Parallel.For(0, points.Count, paralelOptions, (i, loopstate) =>
                 {
                     var thread = Thread.CurrentThread.ManagedThreadId;
-                    OnThreadStarted?.Invoke(this, new OnThreadStartEventArgs(thread));
-                    for (int j = i + 1; j < existingPoints.Count; j++)
+                    OnNotification?.Invoke(this, $"Thread {thread} started, searching circle through 3 points");
+                    for (int j = i + 1; j < points.Count; j++)
                     {
-                        var circle = CreateCircle.FromThreePoints(newPoint, existingPoints[i], existingPoints[j]);
+                        var circle = CreateCircle.FromThreePoints(newPoint, points[i], points[j]);
 
-                        if (circle.ContainsAllPoints(existingPoints))
+                        if (circle.ContainsAllPoints(points))
                         {
                             if (minCircle == null || circle < minCircle)
                             {
@@ -117,10 +115,12 @@ namespace SmallestCircle.Calculation
                             }
                         }
                     }
-                    OnThreadStopped?.Invoke(this, new OnThreadStopEventArgs(thread));
+                    OnNotification?.Invoke(this, $"Thread {thread} finished");
                 });
 
             }
+
+            OnNotification?.Invoke(this, $"Min circle found {circle}");
             return minCircle;
         }
     }

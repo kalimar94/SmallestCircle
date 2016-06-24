@@ -2,20 +2,14 @@
 using SmallestCircle.Data;
 using SmallestCircle.Data.Input;
 using SmallestCircle.Data.Input.File;
-using SmallestCircle.Data.Input.Randomized;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmallestCircle.ConsoleMode
 {
     class Program
     {
         static IAsyncPointsIterator pointsGenerator;
-
-        static DemoCalculator threadCal;
 
         static void Main(string[] args)
         {
@@ -24,27 +18,23 @@ namespace SmallestCircle.ConsoleMode
 
             var arguments = StartArguments.ParseArgs(args);
 
-            var circle = TestLinearCalculator(arguments.PointsFile);
+            //var circle = TestLinearCalculator(arguments.PointsFile);
 
-            //var circle = TestMultiCalculator(arguments.PointsFile, 3);
+            //var circle = TestDemoCalculator(arguments);
+            var circle = TestMultiCalculator(arguments.PointsFile, 4);
 
             stopWatch.Stop();
 
 
             Console.WriteLine($"Circle ready center: {circle.Center} r: {circle.Radius}. \n Time: {stopWatch.ElapsedMilliseconds} ms");
-
             Console.ReadKey();
         }
-
 
         public static Circle TestLinearCalculator(string filePath)
         {
             IPointsIterator pointGen = new FilePointsInterator(filePath);
-
             var linealCalc = new Calculator(pointGen);
-
             var circle = linealCalc.CalculateCircle();
-
             return circle;
         }
 
@@ -57,15 +47,16 @@ namespace SmallestCircle.ConsoleMode
             return circle;
         }
 
-
-        protected static void OnThreadStart(object sender, OnThreadStartEventArgs e)
+        public static Circle TestDemoCalculator(StartArguments args)
         {
-            Console.WriteLine("Thread {0} started", e.ThreadNumber);
-        }
+            pointsGenerator = new FilePointsInterator(args.PointsFile);
+            var calc = new DemoCalculator(pointsGenerator, args.ThreadCount);
 
-        protected static void OnThreadStop(object sender, OnThreadStopEventArgs e)
-        {
-            Console.WriteLine("Thread {0} stopped", e.ThreadNumber);
+            if (!args.QuietMode)
+                calc.OnNotification += (sender, e) => Console.WriteLine(e.Message);
+
+            var circle = calc.CalculateCircleAsync().Result;
+            return circle;
         }
     }
 }

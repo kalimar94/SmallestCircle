@@ -7,9 +7,10 @@
     using System.Linq;
     using System;
 
-
     /// <summary>
     /// This calculator uses the famous algorithm of Emo Welzl, claiming to find the smallest enclosing circle in linear time
+    /// <para> This algorithm is based on linear programming, at each iteration the solution is built ontop of the previous one </para>
+    /// <para> It cannot be used as base for multi-threaded algorithms </para>
     /// </summary>
     public class LinearCalculator
     {
@@ -36,35 +37,31 @@
 
             while (nextPoint != null)
             {
-                //DrawPoint(nextPoint); raise event for drawning a point
                 if (!circle.ContainsPoint(nextPoint))
                 {
-                    // Update the circle to contain the new point as well:
-                    circle = MakeCircleOnePoint(nextPoint, Points);
+                    circle = MakeCircleOnePoint(nextPoint);
                 }
 
                 Points.Add(nextPoint);
                 nextPoint = iterator.GetNext();
             }
-            //raise event for drawing a circle
 
             return circle;
         }
 
 
-
-        private Circle MakeCircleOnePoint(Point point, IList<Point> existingPoints)
+        private Circle MakeCircleOnePoint(Point point)
         {
             var circle = new Circle(point, 0);
 
-            for (int i = 0; i < existingPoints.Count; i++)
+            for (int i = 0; i < Points.Count; i++)
             {
-                if (!circle.ContainsPoint(existingPoints[i]))
+                if (!circle.ContainsPoint(Points[i]))
                 {
                     if (circle.Radius == 0)
-                        circle = CreateCircle.FromTwoPoints(point, existingPoints[i]);
+                        circle = CreateCircle.FromTwoPoints(point, Points[i]);
                     else
-                        circle = FindCircleThroughTwoPoints(existingPoints.Take(i), existingPoints[i], point);
+                        circle = FindCircleThroughTwoPoints(Points.Take(i), Points[i], point);
                 }
             }
             return circle;
@@ -95,7 +92,6 @@
 
             return right == null || left != null && left.Radius <= right.Radius ? left : right;
         }
-
 
         /// <summary>  Returns twice the signed area of the triangle defined by 3 points </summary>
         double CrossProduct(Point point1, Point point2, Point point3)

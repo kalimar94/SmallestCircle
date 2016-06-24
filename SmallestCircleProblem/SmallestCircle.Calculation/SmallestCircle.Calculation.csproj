@@ -44,13 +44,12 @@
     <Compile Include="Geometry\CircleExtensions.cs" />
     <Compile Include="Geometry\CreateCircle.cs" />
     <Compile Include="Geometry\PointExtensions.cs" />
-    <Compile Include="DemoCalculator.cs" />
-    <Compile Include="LinearCalculator.cs" />
+    <Compile Include="Other\DemoCalculator.cs" />
+    <Compile Include="Other\LinearCalculator.cs" />
     <Compile Include="MultiCalculator.cs" />
     <Compile Include="Events\OnCircleDrawEventArgs.cs" />
     <Compile Include="Events\OnPointDrawEventArgs.cs" />
-    <Compile Include="Events\OnThreadStartEventArgs.cs" />
-    <Compile Include="Events\OnThreadStopEventArgs.cs" />
+    <Compile Include="Events\NotificationEventArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

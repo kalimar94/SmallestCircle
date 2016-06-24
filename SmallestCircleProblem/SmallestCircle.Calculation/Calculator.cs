@@ -29,7 +29,6 @@ namespace SmallestCircle.Calculation
 
             while (nextPoint != null)
             {
-                //DrawPoint(nextPoint); raise event for drawning a point
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
@@ -39,7 +38,6 @@ namespace SmallestCircle.Calculation
                 points.Add(nextPoint);
                 nextPoint = iterator.GetNext();
             }
-            //raise event for drawing a circle
             return circle;
         }
 
@@ -55,7 +53,7 @@ namespace SmallestCircle.Calculation
                 if (existingPoints.All(circle.ContainsPoint))
                 {
                     if (minCircle == null || circle < minCircle)
-                        return circle;  //minCircle = circle;
+                        return circle;
                 }
             }
 

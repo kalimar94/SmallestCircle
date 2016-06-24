@@ -24,9 +24,9 @@ namespace SmallestCircle.ConsoleMode
 
             var arguments = StartArguments.ParseArgs(args);
 
-           ///var circle = TestLinearCalculator(arguments.PointsFile);
+            var circle = TestLinearCalculator(arguments.PointsFile);
 
-           var circle = TestMultiCalculator(arguments.PointsFile, 3);
+            //var circle = TestMultiCalculator(arguments.PointsFile, 3);
 
             stopWatch.Stop();
 
@@ -55,7 +55,7 @@ namespace SmallestCircle.ConsoleMode
             var circle = multiCalc.CalculateCircleAsync().Result;
 
             return circle;
-        }     
+        }
 
 
         protected static void OnThreadStart(object sender, OnThreadStartEventArgs e)

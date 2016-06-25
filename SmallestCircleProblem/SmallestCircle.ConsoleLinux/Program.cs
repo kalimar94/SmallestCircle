@@ -16,9 +16,9 @@ namespace SmallestCircle.ConsoleLinux
 
             var arguments = StartArguments.ParseArgs(args);
 
-            var circle = TestLinearCalculator(arguments.PointsFile);
+            //var circle = TestLinearCalculator(arguments.PointsFile);
 
-            //var circle = TestMultiCalculator(arguments.PointsFile, 1);
+           var circle = TestMultiCalculator(arguments.PointsFile, 1);
 
             stopWatch.Stop();
 
@@ -195,7 +195,7 @@ namespace SmallestCircle.ConsoleLinux
 
         public override string ToString()
         {
-            return $"({X}, {Y})";
+            return String.Format("({0}, {1})",X,Y);
         }
     }
     public class Circle : IComparable<Circle>
@@ -227,7 +227,7 @@ namespace SmallestCircle.ConsoleLinux
 
         public override string ToString()
         {
-            return $"({Center.X} {Center.Y}) - R: {Radius}";
+            return String.Format("({0} {1}) - R: {2}",Center.X,Center.Y,Radius);
         }
 
     }

@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallestCircle.Data", "SmallestCircle.Data\SmallestCircle.Data.csproj", "{37D31611-BB02-4FFF-89BD-91FDD0B9249B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmallestCircle.ConsoleLinux", "SmallestCircle.ConsoleLinux\SmallestCircle.ConsoleLinux.csproj", "{BE1E32A4-81B0-4989-990E-01E3036B3041}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{37D31611-BB02-4FFF-89BD-91FDD0B9249B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37D31611-BB02-4FFF-89BD-91FDD0B9249B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37D31611-BB02-4FFF-89BD-91FDD0B9249B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE1E32A4-81B0-4989-990E-01E3036B3041}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE1E32A4-81B0-4989-990E-01E3036B3041}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE1E32A4-81B0-4989-990E-01E3036B3041}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE1E32A4-81B0-4989-990E-01E3036B3041}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +71,6 @@ Global
 		{FD009839-BC78-4ACB-A08C-93E0BFA13529} = {CF525D1D-D8FB-449C-A2FA-ED11C89E7139}
 		{1621A3D3-7400-4EFB-8D8C-8CA297461CEA} = {2CD9E73D-A565-4B41-AE52-1C252963A4BC}
 		{2015C2A4-3BC0-49FA-9EDB-8AB56F2FFE1B} = {2CD9E73D-A565-4B41-AE52-1C252963A4BC}
+		{BE1E32A4-81B0-4989-990E-01E3036B3041} = {2CD9E73D-A565-4B41-AE52-1C252963A4BC}
 	EndGlobalSection
 EndGlobal

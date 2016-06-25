@@ -54,7 +54,6 @@ namespace SmallestCircle.Calculation
         {
             var paralelOptions = new ParallelOptions { MaxDegreeOfParallelism = threadsCount };
             Circle minCircle = null;
-            bool foundThroughTwoPoints = false;
 
             // Try all circles through two points - newPoint and one of the rest
             Parallel.ForEach(points, paralelOptions, (otherPoint, loopstate) =>
@@ -65,7 +64,6 @@ namespace SmallestCircle.Calculation
                 {
                     if (minCircle == null || circle < minCircle)
                     {
-                        foundThroughTwoPoints = true;
                         minCircle = circle;
                         loopstate.Stop();
                     }
@@ -80,8 +78,6 @@ namespace SmallestCircle.Calculation
                 {
                     for (int j = i + 1; j < points.Count; j++)
                     {
-                        if (foundThroughTwoPoints) loopstate.Stop();
-
                         var circle = CreateCircle.FromThreePoints(newPoint, points[i], points[j]);
 
                         if (circle.ContainsAllPoints(points))

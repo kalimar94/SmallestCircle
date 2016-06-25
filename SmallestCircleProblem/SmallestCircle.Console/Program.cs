@@ -21,6 +21,8 @@ namespace SmallestCircle.ConsoleMode
             //var circle = TestLinearCalculator(arguments.PointsFile);
 
             //var circle = TestDemoCalculator(arguments);
+
+            Console.WriteLine($"Starting on {arguments.ThreadCount} threads");
             var circle = TestMultiCalculator(arguments.PointsFile, arguments.ThreadCount);
 
             stopWatch.Stop();

@@ -21,7 +21,7 @@ namespace SmallestCircle.ConsoleMode
             //var circle = TestLinearCalculator(arguments.PointsFile);
 
             //var circle = TestDemoCalculator(arguments);
-            var circle = TestMultiCalculator(arguments.PointsFile, 4);
+             var circle = TestMultiCalculator(arguments.PointsFile, 4);
 
             stopWatch.Stop();
 
@@ -33,7 +33,7 @@ namespace SmallestCircle.ConsoleMode
         public static Circle TestLinearCalculator(string filePath)
         {
             IPointsIterator pointGen = new FilePointsInterator(filePath);
-            var linealCalc = new Calculator(pointGen);
+            var linealCalc = new LinearCalculator(pointGen);
             var circle = linealCalc.CalculateCircle();
             return circle;
         }

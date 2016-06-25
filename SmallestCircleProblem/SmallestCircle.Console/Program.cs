@@ -21,7 +21,7 @@ namespace SmallestCircle.ConsoleMode
             //var circle = TestLinearCalculator(arguments.PointsFile);
 
             //var circle = TestDemoCalculator(arguments);
-             var circle = TestMultiCalculator(arguments.PointsFile, 4);
+            var circle = TestMultiCalculator(arguments.PointsFile, arguments.ThreadCount);
 
             stopWatch.Stop();
 

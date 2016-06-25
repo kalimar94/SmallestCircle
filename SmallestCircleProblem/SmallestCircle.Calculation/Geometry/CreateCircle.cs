@@ -34,25 +34,5 @@ namespace SmallestCircle.Calculation.Geometry
 
             return new Circle(center, radius);
         }
-
-        /// <summary>
-        /// Creates a Circumscribed circle through 3 points, however if it is impossible to create the circle returns null
-        /// </summary>
-        public static Circle TryFromThreePoints(Point p0, Point p1, Point p2)
-        {
-            double ax = p0.X, ay = p0.Y;
-            double bx = p1.X, by = p1.Y;
-            double cx = p2.X, cy = p2.Y;
-
-            var d = (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by)) * 2;
-            if (d == 0)
-                return null;
-
-            var x = ((ax * ax + ay * ay) * (by - cy) + (bx * bx + by * by) * (cy - ay) + (cx * cx + cy * cy) * (ay - by)) / d;
-            var y = ((ax * ax + ay * ay) * (cx - bx) + (bx * bx + by * by) * (ax - cx) + (cx * cx + cy * cy) * (bx - ax)) / d;
-            var point = new Point(x, y);
-
-            return new Circle(point, point.DistanceTo(new Point(ax, ay)));
-        }
     }
 }

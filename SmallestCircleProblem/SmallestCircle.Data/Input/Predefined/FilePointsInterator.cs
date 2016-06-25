@@ -24,18 +24,18 @@ namespace SmallestCircle.Data.Input.File
             PointsCount = int.Parse(stream.ReadLine());
         }
 
-        public IEnumerable<Point> GetAll()
+        public IEnumerable<Point?> GetAll()
         {
             var lines = stream.ReadToEnd().Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             return lines.Select(ConvertToPoint);
         }
 
-        public Point GetNext()
+        public Point? GetNext()
         {
             return ConvertToPoint(stream.ReadLine());
         }
 
-        static Point ConvertToPoint(string line)
+        static Point? ConvertToPoint(string line)
         {
             if (line == null) return null;
 
@@ -51,12 +51,12 @@ namespace SmallestCircle.Data.Input.File
             stream.Dispose();
         }
 
-        public async Task<Point> GetNextAsync()
+        public async Task<Point?> GetNextAsync()
         {
             return ConvertToPoint(await stream.ReadLineAsync());
         }
 
-        public async Task<IEnumerable<Point>> GetAllAsync()
+        public async Task<IEnumerable<Point?>> GetAllAsync()
         {
             var lines = (await stream.ReadToEndAsync())
                 .Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
@@ -64,17 +64,17 @@ namespace SmallestCircle.Data.Input.File
             return lines.Select(ConvertToPoint);
         }
 
-        public IEnumerable<Point> GetMany(int count)
+        public IEnumerable<Point?> GetMany(int count)
         {
             for (int i = 0; i < count; i++)
             {
-                yield return GetNext();
+                yield return GetNext().Value;
             }
         }
 
-        public async Task<IEnumerable<Point>> GetManyAsync(int count)
+        public async Task<IEnumerable<Point?>> GetManyAsync(int count)
         {
-            var tasks = new List<Task<Point>>(count);
+            var tasks = new List<Task<Point?>>(count);
 
             for (int i = 0; i < count; i++)
             {

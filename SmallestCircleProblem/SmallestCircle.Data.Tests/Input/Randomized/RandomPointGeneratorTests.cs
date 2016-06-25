@@ -27,7 +27,7 @@ namespace SmallestCircle.Data.Input.Randomized.Tests
         [TestMethod]
         public void RandomThreadedPointsGeneratorTest()
         {
-            var randomPoint =  generator.GetNext();
+            var randomPoint =  generator.GetNext().Value;
 
             Assert.IsTrue(Min <= randomPoint.X && randomPoint.X <= Max);
             Assert.IsTrue(Min <= randomPoint.Y && randomPoint.Y <= Max);
@@ -36,7 +36,7 @@ namespace SmallestCircle.Data.Input.Randomized.Tests
         [TestMethod]
         public void GetAllAsyncTest()
         {
-            var randomPoints = generator.GetAll().ToList();
+            var randomPoints = generator.GetAll().Select(x=> x.Value).ToList();
 
             Assert.AreEqual(Count, randomPoints.Count);
             Assert.IsTrue(randomPoints.All(p => Min <= p.X && p.X <= Max));

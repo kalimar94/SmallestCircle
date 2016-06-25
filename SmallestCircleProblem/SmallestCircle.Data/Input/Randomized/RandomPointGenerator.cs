@@ -20,12 +20,12 @@ namespace SmallestCircle.Data.Input.Randomized
 
         public int PointsCount { get; set; }
 
-        public IEnumerable<Point> GetAll()
+        public IEnumerable<Point?> GetAll()
         {
             return GetMany(PointsCount);
         }
 
-        public IEnumerable<Point> GetMany(int count)
+        public IEnumerable<Point?> GetMany(int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -33,7 +33,7 @@ namespace SmallestCircle.Data.Input.Randomized
             }
         }
 
-        public Point GetNext()
+        public Point? GetNext()
         {
             if (PointsCount < 1)
                 return null;

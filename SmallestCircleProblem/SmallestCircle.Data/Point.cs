@@ -1,6 +1,9 @@
-﻿namespace SmallestCircle.Data
+﻿using Cudafy;
+
+namespace SmallestCircle.Data
 {
-    public class Point
+    [Cudafy]
+    public struct Point
     {
         public double X { get; private set; }
 
@@ -10,11 +13,6 @@
         {
             this.X = x;
             this.Y = y;
-        }
-
-        public override string ToString()
-        {
-            return $"({X}, {Y})";
         }
     }
 }

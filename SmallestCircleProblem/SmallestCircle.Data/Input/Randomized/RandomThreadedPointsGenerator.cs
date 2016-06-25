@@ -22,12 +22,12 @@ namespace SmallestCircle.Data.Input.Randomized
             this.PointsCount = pointsCount;
         }
 
-        public Task<IEnumerable<Point>> GetAllAsync()
+        public Task<IEnumerable<Point?>> GetAllAsync()
         {
             return GetManyAsync(PointsCount);
         }
 
-        public async Task<Point> GetNextAsync()
+        public async Task<Point?> GetNextAsync()
         {
             if (PointsCount <= 0)
                 return null;
@@ -46,9 +46,9 @@ namespace SmallestCircle.Data.Input.Randomized
             return Environment.TickCount * Thread.CurrentThread.ManagedThreadId;
         }
 
-        public async Task<IEnumerable<Point>> GetManyAsync(int count)
+        public async Task<IEnumerable<Point?>> GetManyAsync(int count)
         {
-            var tasks = new List<Task<Point>>(count);
+            var tasks = new List<Task<Point?>>(count);
 
             for (int i = 0; i < count; i++)
             {

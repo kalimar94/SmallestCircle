@@ -4,11 +4,11 @@ namespace SmallestCircle.Data.Input
 {
     public interface IPointsIterator
     {
-        Point GetNext();
+        Point? GetNext();
 
-        IEnumerable<Point> GetAll();
+        IEnumerable<Point?> GetAll();
 
-        IEnumerable<Point> GetMany(int count);
+        IEnumerable<Point?> GetMany(int count);
 
         int PointsCount { get; }
 

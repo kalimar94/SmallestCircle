@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Cudafy;
+using System;
 
 namespace SmallestCircle.Data
 {
-    public class Circle : IComparable<Circle>
+    [Cudafy]
+    public struct Circle : IComparable<Circle>
     {
         public Circle(Point center, double radius)
         {

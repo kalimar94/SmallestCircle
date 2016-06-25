@@ -39,7 +39,7 @@ namespace SmallestCircle.Calculation
             if (points.Count < 2)
             {
                 // Read the first two points:
-                var firstPoints = (await iterator.GetManyAsync(2)).ToArray();
+                var firstPoints = (await iterator.GetManyAsync(2)).Select(x=> x.Value).ToArray();
                
                 circle = CreateCircle.FromTwoPoints(firstPoints[0], firstPoints[1]);
 
@@ -54,19 +54,19 @@ namespace SmallestCircle.Calculation
 
             while (nextPoint != null && !token.IsCancellationRequested)
             {
-                OnPointProcessed?.Invoke(this, new OnPointDrawEventArgs(nextPoint));
+                OnPointProcessed?.Invoke(this, new OnPointDrawEventArgs(nextPoint.Value));
                 await Task.Delay(300);
 
                 nextPointTask = iterator.GetNextAsync();
 
-                if (!circle.ContainsPoint(nextPoint))
+                if (!circle.ContainsPoint(nextPoint.Value))
                 {
                     // Update the circle to contain the new point as well:
-                    circle = FindCircleCombination(nextPoint);
+                    circle = FindCircleCombination(nextPoint.Value);
                     OnCircleFound?.Invoke(this, new OnCircleDrawEventArgs(circle));
                 }
 
-                points.Add(nextPoint);
+                points.Add(nextPoint.Value);
                 nextPoint = await nextPointTask;
                 await Task.Delay(300);
             }
@@ -77,7 +77,7 @@ namespace SmallestCircle.Calculation
         protected Circle FindCircleCombination(Point newPoint)
         {
             var paralelOptions = new ParallelOptions { MaxDegreeOfParallelism = threadsCount };
-            Circle minCircle = null;
+            Circle? minCircle = null;
 
             Parallel.ForEach(points, paralelOptions, (otherPoint, loopstate) =>
             {
@@ -121,7 +121,7 @@ namespace SmallestCircle.Calculation
             }
 
             OnNotification?.Invoke(this, $"Min circle found {circle}");
-            return minCircle;
+            return minCircle.Value;
         }
     }
 }

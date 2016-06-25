@@ -28,8 +28,8 @@ namespace SmallestCircle.Calculation
             var firstPoints = (await iterator.GetManyAsync(2)).ToArray();
             var nextPointTask = iterator.GetNextAsync();
 
-            var circle = CreateCircle.FromTwoPoints(firstPoints[0], firstPoints[1]);
-            points.AddRange(firstPoints);
+            var circle = CreateCircle.FromTwoPoints(firstPoints[0].Value, firstPoints[1].Value);
+            points.AddRange(firstPoints.Select(x=> x.Value));
 
             var count = iterator.PointsCount;
             var nextPoint = await nextPointTask;
@@ -38,13 +38,13 @@ namespace SmallestCircle.Calculation
             {
                 nextPointTask = iterator.GetNextAsync();
 
-                if (!circle.ContainsPoint(nextPoint))
+                if (!circle.ContainsPoint(nextPoint.Value))
                 {
                     // Update the circle to contain the new point as well:
-                    circle = FindCircleCombination(nextPoint);
+                    circle = FindCircleCombination(nextPoint.Value);
                 }
 
-                points.Add(nextPoint);
+                points.Add(nextPoint.Value);
                 nextPoint = await nextPointTask;
             }
             return circle;
@@ -53,7 +53,7 @@ namespace SmallestCircle.Calculation
         private Circle FindCircleCombination(Point newPoint)
         {
             var paralelOptions = new ParallelOptions { MaxDegreeOfParallelism = threadsCount };
-            Circle minCircle = null;
+            Circle? minCircle = null;
 
             // Try all circles through two points - newPoint and one of the rest
             Parallel.ForEach(points, paralelOptions, (otherPoint, loopstate) =>
@@ -91,7 +91,7 @@ namespace SmallestCircle.Calculation
                 });             
             }
 
-            return minCircle;
+            return minCircle.Value;
         }
     }
 }

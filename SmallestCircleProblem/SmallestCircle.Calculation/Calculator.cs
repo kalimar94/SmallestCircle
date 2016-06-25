@@ -22,20 +22,20 @@ namespace SmallestCircle.Calculation
         public Circle CalculateCircle()
         {
             var firstPoints = iterator.GetMany(2).ToArray();
-            var circle = CreateCircle.FromTwoPoints(firstPoints[0], firstPoints[1]);
+            var circle = CreateCircle.FromTwoPoints(firstPoints[0].Value, firstPoints[1].Value);
 
-            points.AddRange(firstPoints);
+            points.AddRange(firstPoints.Select(x=> x.Value));
             var nextPoint = iterator.GetNext();
 
             while (nextPoint != null)
             {
-                if (!circle.ContainsPoint(nextPoint))
+                if (!circle.ContainsPoint(nextPoint.Value))
                 {
                     // Update the circle to contain the new point as well:
-                    circle = FindCircleCombination(nextPoint, points);
+                    circle = FindCircleCombination(nextPoint.Value, points);
                 }
 
-                points.Add(nextPoint);
+                points.Add(nextPoint.Value);
                 nextPoint = iterator.GetNext();
             }
             return circle;
@@ -43,14 +43,14 @@ namespace SmallestCircle.Calculation
 
         private Circle FindCircleCombination(Point newPoint, List<Point> existingPoints)
         {
-            Circle minCircle = null;
+            Circle? minCircle = null;
 
             // Try all circles that are formed as a combination of the new point and one of the existing ones
             foreach (var otherPoint in existingPoints)
             {
                 var circle = CreateCircle.FromTwoPoints(newPoint, otherPoint);
 
-                if (existingPoints.All(circle.ContainsPoint))
+                if (circle.ContainsAllPoints(existingPoints))
                 {
                     if (minCircle == null || circle < minCircle)
                         return circle;
@@ -65,7 +65,7 @@ namespace SmallestCircle.Calculation
                 {
                     var circle = CreateCircle.FromThreePoints(newPoint, existingPoints[i], existingPoints[j]);
 
-                    if (existingPoints.All(circle.ContainsPoint))
+                    if (circle.ContainsAllPoints(existingPoints))
                     {
                         if (minCircle == null || circle < minCircle)
                             minCircle = circle;
@@ -73,7 +73,7 @@ namespace SmallestCircle.Calculation
                 }
             }
            
-            return minCircle;
+            return minCircle.Value;
         }
     }
 }

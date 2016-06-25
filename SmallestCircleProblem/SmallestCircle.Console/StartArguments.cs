@@ -18,7 +18,7 @@ namespace SmallestCircle.ConsoleMode
         {
             this.PointsCount = pointsCount;
             this.ThreadCount = threadsCount;
-            this.QuietMode = QuietMode;
+            this.QuietMode = quietMode;
             this.PointsFile = pointsFile;
         }
 

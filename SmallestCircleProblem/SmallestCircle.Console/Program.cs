@@ -1,7 +1,7 @@
 ﻿using SmallestCircle.Calculation;
 using SmallestCircle.Data;
-using SmallestCircle.Data.Input;
 using SmallestCircle.Data.Input.File;
+using SmallestCircle.Data.Input.Randomized;
 using System;
 using System.Diagnostics;
 
@@ -9,56 +9,63 @@ namespace SmallestCircle.ConsoleMode
 {
     class Program
     {
-        static IAsyncPointsIterator pointsGenerator;
-
         static void Main(string[] args)
         {
-            var stopWatch = new Stopwatch();
-            stopWatch.Start();
-
             var arguments = StartArguments.ParseArgs(args);
 
-            //var circle = TestLinearCalculator(arguments.PointsFile);
-
-            //var circle = TestDemoCalculator(arguments);
-
-            Console.WriteLine($"Starting on {arguments.ThreadCount} threads");
-            var circle = TestMultiCalculator(arguments.PointsFile, arguments.ThreadCount);
-
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            var circle = CalculateCircle(arguments);
             stopWatch.Stop();
-
 
             Console.WriteLine($"Circle ready center: {circle.Center} r: {circle.Radius}. \n Time: {stopWatch.ElapsedMilliseconds} ms");
             Console.ReadKey();
         }
 
-        public static Circle TestLinearCalculator(string filePath)
+        public static Circle CalculateCircle(StartArguments args)
         {
-            IPointsIterator pointGen = new FilePointsInterator(filePath);
-            var linealCalc = new LinearCalculator(pointGen);
-            var circle = linealCalc.CalculateCircle();
-            return circle;
-        }
-
-        public static Circle TestMultiCalculator(string filePath, int threadCount)
-        {
-            pointsGenerator = new FilePointsInterator(filePath);
-            var multiCalc = new MultiCalculator(pointsGenerator, threadCount);
-            var circle = multiCalc.CalculateCircleAsync().Result;
-
-            return circle;
-        }
-
-        public static Circle TestDemoCalculator(StartArguments args)
-        {
-            pointsGenerator = new FilePointsInterator(args.PointsFile);
-            var calc = new DemoCalculator(pointsGenerator, args.ThreadCount);
-
-            if (!args.QuietMode)
-                calc.OnNotification += (sender, e) => Console.WriteLine(e.Message);
-
-            var circle = calc.CalculateCircleAsync().Result;
-            return circle;
+            if (!string.IsNullOrWhiteSpace(args.PointsFile))
+            {
+                var generator = new FilePointsInterator(args.PointsFile);
+                if (!args.QuietMode)
+                {
+                    var calculator = new DemoCalculator(generator, args.ThreadCount);
+                    calculator.OnNotification += (sender, e) => Console.WriteLine(e.Message);
+                    return calculator.CalculateCircleAsync().Result;
+                }
+                else if (args.ThreadCount < 2)
+                {
+                    var calculator = new Calculator(generator);
+                    return calculator.CalculateCircle();
+                }
+                else
+                {
+                    var calculator = new MultiCalculator(generator, args.ThreadCount);
+                    return calculator.CalculateCircleAsync().Result;
+                }
+            }
+            else
+            {
+                if (!args.QuietMode)
+                {
+                    var generator = new RandomThreadedPointsGenerator(args.PointsCount, 0, 47483647);
+                    var calculator = new DemoCalculator(generator, args.ThreadCount);
+                    calculator.OnNotification += (sender, e) => Console.WriteLine(e.Message);
+                    return calculator.CalculateCircleAsync().Result;
+                }
+                else if (args.ThreadCount < 2)
+                {
+                    var generator = new RandomPointGenerator(args.PointsCount, 0, 47483647);
+                    var calculator = new LinearCalculator(generator);
+                    return calculator.CalculateCircle();
+                }
+                else
+                {
+                    var generator = new RandomThreadedPointsGenerator(args.PointsCount, 0, 47483647);
+                    var calculator = new MultiCalculator(generator, args.ThreadCount);
+                    return calculator.CalculateCircleAsync().Result;
+                }   
+            }
         }
     }
 }

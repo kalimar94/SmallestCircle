@@ -22,15 +22,22 @@ namespace SmallestCircle.Calculation
         public delegate void NotificationEventHandler(object sender, NotificationEventArgs e);
         public event NotificationEventHandler OnNotification;
 
-
         private Circle circle;
+        private TimeSpan delay;
 
         public List<Point> Points => this.points;
+
 
         public DemoCalculator(IAsyncPointsIterator iterator, int threadsCount)
          :base(iterator, threadsCount)
         {
+            delay = TimeSpan.FromMilliseconds(300);
+        }
 
+        public DemoCalculator(IAsyncPointsIterator iterator, int threadsCount, TimeSpan delay)
+            : base(iterator, threadsCount)
+        {
+            this.delay = delay;
         }
 
         public async Task<Circle> CalculateCircleAsync(CancellationToken token = default(CancellationToken))
@@ -55,7 +62,7 @@ namespace SmallestCircle.Calculation
             while (nextPoint != null && !token.IsCancellationRequested)
             {
                 OnPointProcessed?.Invoke(this, new OnPointDrawEventArgs(nextPoint));
-                await Task.Delay(300);
+                await Task.Delay(delay);
 
                 nextPointTask = iterator.GetNextAsync();
 
@@ -68,7 +75,7 @@ namespace SmallestCircle.Calculation
 
                 points.Add(nextPoint);
                 nextPoint = await nextPointTask;
-                await Task.Delay(300);
+                await Task.Delay(delay);
             }
             OnCircleFound?.Invoke(this, new OnCircleDrawEventArgs(circle));
             return circle;

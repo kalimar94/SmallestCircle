@@ -31,10 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Cudafy.NET, Version=1.29.5576.13786, Culture=neutral, PublicKeyToken=63a4c9931616906b, processorArchitecture=MSIL">
-      <HintPath>..\packages\CUDAfy.NET.1.29.5576.13786\lib\net40\Cudafy.NET.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
@@ -44,6 +40,7 @@
     <Compile Include="Geometry\CreateCircle.cs" />
     <Compile Include="Geometry\PointExtensions.cs" />
     <Compile Include="Other\DemoCalculator.cs" />
+    <Compile Include="Other\LinearCalculator.cs" />
     <Compile Include="MultiCalculator.cs" />
     <Compile Include="Events\OnCircleDrawEventArgs.cs" />
     <Compile Include="Events\OnPointDrawEventArgs.cs" />
@@ -55,19 +52,6 @@
       <Project>{37d31611-bb02-4fff-89bd-91fdd0b9249b}</Project>
       <Name>SmallestCircle.Data</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include="Tools\place_these_executables_in_same_folder_as_Cudafy.NET.dll_" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Readme\CUDA.NET.Readme.txt" />
-    <Content Include="Readme\CUDAfy-License.txt" />
-    <Content Include="Readme\example_source_code.cs.txt" />
-    <Content Include="Readme\ILSpy-license.txt" />
-    <Content Include="Readme\README.txt" />
-    <Content Include="Tools\cudafycl.exe" />
-    <Content Include="Tools\CudafyViewer.exe" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

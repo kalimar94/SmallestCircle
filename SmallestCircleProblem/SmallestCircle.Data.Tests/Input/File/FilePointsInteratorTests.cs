@@ -55,7 +55,7 @@ namespace SmallestCircle.Data.Input.File.Tests
         [TestMethod]
         public void ReturnsNullWhenFileEnds()
         {
-            var points = new List<Point?>();
+            var points = new List<Point>();
             var current = iterator.GetNext();
 
             while (current != null)
@@ -70,7 +70,7 @@ namespace SmallestCircle.Data.Input.File.Tests
         [TestMethod]
         public async Task ReturnsNullWhenFileEndsAsync()
         {
-            var points = new List<Point?>();
+            var points = new List<Point>();
             var current = iterator.GetNext();
 
             while (current != null)

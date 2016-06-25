@@ -19,20 +19,20 @@ namespace SmallestCircle.Data.Input.Predefined
 
         public int PointsCount => points.Count;
 
-        public IEnumerable<Point?> GetAll()
+        public IEnumerable<Point> GetAll()
         {
-            return points.Cast<Point?>();
+            return points;
         }
 
-        public IEnumerable<Point?> GetMany(int count)
+        public IEnumerable<Point> GetMany(int count)
         {
             counter += count;
-            return points.Take(count).Cast<Point?>();
+            return points.Take(count);
         }
 
-        public Point? GetNext()
+        public Point GetNext()
         {
-            return counter < points.Count?  points[counter++] : null as Point?;
+            return  counter < points.Count?  points[counter++] : null;
         }
     }
 }

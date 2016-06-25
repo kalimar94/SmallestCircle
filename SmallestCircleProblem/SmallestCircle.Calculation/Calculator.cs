@@ -32,7 +32,7 @@ namespace SmallestCircle.Calculation
                 if (!circle.ContainsPoint(nextPoint))
                 {
                     // Update the circle to contain the new point as well:
-                    circle = FindCircleCombination(nextPoint, points);
+                    circle = FindCircleCombination(nextPoint);
                 }
 
                 points.Add(nextPoint);
@@ -41,16 +41,16 @@ namespace SmallestCircle.Calculation
             return circle;
         }
 
-        private Circle FindCircleCombination(Point newPoint, List<Point> existingPoints)
+        private Circle FindCircleCombination(Point newPoint)
         {
             Circle minCircle = null;
 
             // Try all circles that are formed as a combination of the new point and one of the existing ones
-            foreach (var otherPoint in existingPoints)
+            foreach (var otherPoint in points)
             {
                 var circle = CreateCircle.FromTwoPoints(newPoint, otherPoint);
 
-                if (existingPoints.All(circle.ContainsPoint))
+                if (circle.ContainsAllPoints(points))
                 {
                     if (minCircle == null || circle < minCircle)
                         return circle;
@@ -59,13 +59,13 @@ namespace SmallestCircle.Calculation
 
             // Try all circles that are formed as a combination of the new point and two of the existing ones
 
-            for (int i = 0; i < existingPoints.Count; i++)
+            for (int i = 0; i < points.Count; i++)
             {
-                for (int j = i + 1; j < existingPoints.Count; j++)
+                for (int j = i + 1; j < points.Count; j++)
                 {
-                    var circle = CreateCircle.FromThreePoints(newPoint, existingPoints[i], existingPoints[j]);
+                    var circle = CreateCircle.FromThreePoints(newPoint, points[i], points[j]);
 
-                    if (existingPoints.All(circle.ContainsPoint))
+                    if (circle.ContainsAllPoints(points))
                     {
                         if (minCircle == null || circle < minCircle)
                             minCircle = circle;

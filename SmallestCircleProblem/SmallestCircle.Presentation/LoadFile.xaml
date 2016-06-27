@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:SmallestCircle.Presentation"
              mc:Ignorable="d">
     <Grid>
-        <Border BorderBrush="#FF0000" BorderThickness="1" Margin="0,0,1,49">
-            <Grid Name="DrawingArea" Margin="0,0,0,-1" >
+        <Border BorderBrush="#FF0000" BorderThickness="1" Margin="0,0,0,29">
+            <Grid Name="DrawingArea" >
             </Grid>
         </Border>
-        <Button x:Name="Upload" Content="Open File" Height="24" Margin="449,327,-1,0" VerticalAlignment="Top" Width="65" Click="Upload_Click"/>
-        <TextBox x:Name="UploadText" Height="24" Margin="0,328,69,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="444" TextChanged="textBox_TextChanged"/>
-        <Button x:Name="Calculate" Content="Calculate" Height="24" Margin="0,352,0,0" VerticalAlignment="Top" Width="80" Click="Calculate_Click"/>
-        <Button x:Name="Clear" Content="Clear" Height="24" Margin="93,352,340,0" VerticalAlignment="Top" Width="80" Click="Clear_Click"/>
-</Grid>
+        <TextBox x:Name="UploadText" Height="28" Margin="170,352,69,0" TextWrapping="Wrap" VerticalAlignment="Bottom" TextChanged="textBox_TextChanged"/>
+        <Button x:Name="Upload" Content="Open File" Height="28" Margin="0,0,4,0" VerticalAlignment="Bottom" Width="65" Click="Upload_Click" HorizontalAlignment="Right"/>
+        <Button x:Name="Calculate" Content="Calculate" Height="28" Margin="0,352,433,0" VerticalAlignment="Bottom" Width="80" Click="Calculate_Click" HorizontalAlignment="Left"/>
+        <Button x:Name="Clear" Content="Clear" Height="28" Margin="85,352,348,0" VerticalAlignment="Bottom" Width="80" Click="Clear_Click" HorizontalAlignment="Left"/>
+    </Grid>
 </UserControl>

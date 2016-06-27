@@ -10,7 +10,7 @@
         <Border BorderBrush="#FF0000" BorderThickness="1" Margin="0,0,0,3">
             <Canvas Name="DrawingArea" MouseLeftButtonUp="DrawingArea_MouseLeftButtonUp" Background="Transparent" Margin="0,0,0,-42" />
         </Border>
-        <Button x:Name="ClearBtn" Content="Clear" Height="28" Margin="10,0,171,-30" MaxWidth="600" VerticalAlignment="Bottom" Click="ClearBtn_Click" />
-        <Button x:Name="ExportBtn" Content="Export Points" Height="28" Margin="0,0,10,-30" VerticalAlignment="Bottom" Click="ExportBtn_Click" MaxWidth="300" HorizontalAlignment="Right" Width="130" />
+        <Button x:Name="ClearBtn" Content="Clear" Height="28" Margin="10,0,171,-30" MaxWidth="2000" VerticalAlignment="Bottom" Click="ClearBtn_Click" />
+        <Button x:Name="ExportBtn" Content="Export Points" Height="28" Margin="170,0,0,-30" VerticalAlignment="Bottom" Click="ExportBtn_Click" MaxWidth="500" Width="130" HorizontalAlignment="Right" />
     </Grid>
 </UserControl>

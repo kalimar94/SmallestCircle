@@ -7,13 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="400" MinWidth="400" Width="800" Height="800">
     <Grid>
-            
+
         <TabControl x:Name="tabControl">
             <TabItem Header="Random Points">
                 <local:RandomizedGeneration />
             </TabItem>
             <TabItem Header="ScratchPad">
                 <local:ScratchPad />
+            </TabItem>
+            <TabItem Header="FromFile">
+                <local:LoadFile />
             </TabItem>
         </TabControl>
     </Grid>
